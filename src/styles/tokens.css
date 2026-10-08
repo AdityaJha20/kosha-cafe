@@ -1,0 +1,43 @@
+:root {
+  /* Brand Color Palette */
+  --kosha-cream: #F5F0E5;
+  --kosha-charcoal: #302F2B;
+  --kosha-green: #71836A;
+  --kosha-terracotta: #C7684E;
+  --kosha-ochre: #D6A33C;
+  --kosha-taupe: #B9A78E;
+
+  /* Neutrals & Alpha Layers */
+  --kosha-charcoal-80: rgba(48, 47, 43, 0.80);
+  --kosha-charcoal-60: rgba(48, 47, 43, 0.60);
+  --kosha-charcoal-40: rgba(48, 47, 43, 0.40);
+  --kosha-charcoal-15: rgba(48, 47, 43, 0.15);
+  --kosha-cream-soft: #FAF7F0;
+  --kosha-cream-overlay: rgba(245, 240, 229, 0.85);
+
+  /* Spacing Scale */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+
+  /* Radii */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-family-base: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+
+  /* Transitions & Animation */
+  --transition-entrance: 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 200ms ease;
+
+  /* Elevation Shadows */
+  --shadow-artwork: 0 24px 64px -12px rgba(48, 47, 43, 0.12), 0 8px 24px -4px rgba(48, 47, 43, 0.06);
+  --shadow-subtle: 0 4px 16px -2px rgba(48, 47, 43, 0.05);
+}
