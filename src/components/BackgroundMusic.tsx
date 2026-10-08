@@ -1,18 +1,17 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import styles from './BackgroundMusic.module.css';
 
 const AUDIO_SRC = '/audio/kosha-ambient.mp3';
-const TARGET_VOLUME = 0.12; // Subtle background level (within 0.10–0.15)
-const FADE_IN_DURATION_MS = 500;
-const FADE_OUT_DURATION_MS = 400;
-const SESSION_STORAGE_KEY = 'kosha_ambient_sound_enabled';
+const TARGET_VOLUME = 0.15; // Subtle atmospheric volume within requested 0.10–0.15 range
+const FADE_IN_MS = 600;
+const FADE_OUT_MS = 400;
 
 export const BackgroundMusic: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const fadeTimerRef = useRef<number | null>(null);
 
-  // Clear any ongoing fade interpolation
+  // Clear any active fade interval
   const clearFadeTimer = useCallback(() => {
     if (fadeTimerRef.current !== null) {
       window.clearInterval(fadeTimerRef.current);
@@ -20,139 +19,106 @@ export const BackgroundMusic: React.FC = () => {
     }
   }, []);
 
-  // Smooth fade-in
-  const fadeIn = useCallback((audio: HTMLAudioElement) => {
-    clearFadeTimer();
-    const intervalMs = 25;
-    const steps = Math.max(1, Math.floor(FADE_IN_DURATION_MS / intervalMs));
-    const stepIncrement = TARGET_VOLUME / steps;
+  // Smooth volume interpolation using elapsed performance.now()
+  const fadeVolume = useCallback(
+    (
+      audio: HTMLAudioElement,
+      targetVolume: number,
+      durationMs: number,
+      onComplete?: () => void
+    ) => {
+      clearFadeTimer();
+      const startVolume = audio.volume;
+      const startTime = performance.now();
 
-    fadeTimerRef.current = window.setInterval(() => {
-      const nextVolume = audio.volume + stepIncrement;
-      if (nextVolume >= TARGET_VOLUME) {
-        audio.volume = TARGET_VOLUME;
-        clearFadeTimer();
-      } else {
-        audio.volume = nextVolume;
-      }
-    }, intervalMs);
-  }, [clearFadeTimer]);
+      fadeTimerRef.current = window.setInterval(() => {
+        const elapsed = performance.now() - startTime;
+        const progress = Math.min(elapsed / durationMs, 1);
+        const currentVol = startVolume + (targetVolume - startVolume) * progress;
 
-  // Smooth fade-out followed by pause
-  const fadeOut = useCallback((audio: HTMLAudioElement, onDone?: () => void) => {
-    clearFadeTimer();
-    const intervalMs = 25;
-    const currentVol = audio.volume;
-    const steps = Math.max(1, Math.floor(FADE_OUT_DURATION_MS / intervalMs));
-    const stepDecrement = currentVol / steps;
+        try {
+          audio.volume = Math.max(0, Math.min(1, currentVol));
+        } catch {
+          // Setting volume may throw or be ignored on some mobile platforms (e.g. iOS)
+        }
 
-    fadeTimerRef.current = window.setInterval(() => {
-      const nextVolume = audio.volume - stepDecrement;
-      if (nextVolume <= 0.005) {
-        audio.volume = 0;
-        audio.pause();
-        clearFadeTimer();
-        onDone?.();
-      } else {
-        audio.volume = nextVolume;
-      }
-    }, intervalMs);
-  }, [clearFadeTimer]);
+        if (progress >= 1) {
+          clearFadeTimer();
+          try {
+            audio.volume = targetVolume;
+          } catch {
+            // Ignore volume lockdown
+          }
+          onComplete?.();
+        }
+      }, 20);
+    },
+    [clearFadeTimer]
+  );
 
-  // Audio start action
-  const startAudio = useCallback(async () => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    try {
-      audio.volume = 0;
-      await audio.play();
-      setIsPlaying(true);
-      fadeIn(audio);
-      try {
-        sessionStorage.setItem(SESSION_STORAGE_KEY, 'true');
-      } catch {
-        // Storage access may fail in restricted/private browsing modes
-      }
-    } catch {
-      // Autoplay or playback rejected by browser policy
-      setIsPlaying(false);
-    }
-  }, [fadeIn]);
-
-  // Audio stop action
-  const stopAudio = useCallback(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    setIsPlaying(false);
-    try {
-      sessionStorage.setItem(SESSION_STORAGE_KEY, 'false');
-    } catch {
-      // Storage access may fail
-    }
-
-    fadeOut(audio);
-  }, [fadeOut]);
-
-  // Toggle handler
-  const handleToggle = () => {
+  // Main toggle handler triggered by user gesture
+  const handleToggle = async () => {
     if (isPlaying) {
-      stopAudio();
+      // 1. Fade volume down
+      // 2. Pause the audio
+      // 3. Update UI to OFF
+      setIsPlaying(false);
+      const audio = audioRef.current;
+      if (audio) {
+        fadeVolume(audio, 0, FADE_OUT_MS, () => {
+          audio.pause();
+        });
+      }
     } else {
-      startAudio();
+      // 1. Create or reuse the Audio instance
+      let audio = audioRef.current;
+      if (!audio) {
+        audio = new Audio(AUDIO_SRC);
+        audio.preload = 'metadata';
+        audioRef.current = audio;
+      }
+
+      // 2. Set the correct source and ensure loop & not muted
+      audio.loop = true;
+      audio.muted = false;
+
+      // 3. Set volume initially to 0
+      try {
+        audio.volume = 0;
+      } catch {
+        // Fallback for mobile
+      }
+
+      // 4. Call play() with full promise handling
+      try {
+        await audio.play();
+
+        // 5. If play succeeds, fade volume to 0.10–0.15 and update UI to ON
+        setIsPlaying(true);
+        fadeVolume(audio, TARGET_VOLUME, FADE_IN_MS);
+      } catch (err) {
+        console.warn(
+          'Background music could not start. User interaction may be required.',
+          err
+        );
+        setIsPlaying(false);
+      }
     }
   };
 
-  // Restore session preference on user interaction if previously enabled in session
+  // Clean up on component unmount
   useEffect(() => {
-    let savedPreference: string | null = null;
-    try {
-      savedPreference = sessionStorage.getItem(SESSION_STORAGE_KEY);
-    } catch {
-      savedPreference = null;
-    }
-
-    if (savedPreference === 'true') {
-      const handleFirstInteraction = () => {
-        window.removeEventListener('pointerdown', handleFirstInteraction);
-        window.removeEventListener('keydown', handleFirstInteraction);
-        startAudio();
-      };
-
-      window.addEventListener('pointerdown', handleFirstInteraction, { once: true });
-      window.addEventListener('keydown', handleFirstInteraction, { once: true });
-
-      return () => {
-        window.removeEventListener('pointerdown', handleFirstInteraction);
-        window.removeEventListener('keydown', handleFirstInteraction);
-      };
-    }
-  }, [startAudio]);
-
-  // Cleanup on unmount
-  useEffect(() => {
-    const audio = audioRef.current;
     return () => {
       clearFadeTimer();
-      if (audio) {
-        audio.pause();
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
       }
     };
   }, [clearFadeTimer]);
 
   return (
     <div className={styles.musicControlWrapper}>
-      {/* Hidden native HTML Audio element */}
-      <audio
-        ref={audioRef}
-        src={AUDIO_SRC}
-        loop
-        preload="metadata"
-        aria-hidden="true"
-      />
-
-      {/* Understated KOSHA Audio Toggle Button */}
       <button
         type="button"
         className={`${styles.musicButton} ${isPlaying ? styles.isPlaying : ''}`}
@@ -162,7 +128,7 @@ export const BackgroundMusic: React.FC = () => {
         title={isPlaying ? 'Turn background music off' : 'Turn background music on'}
       >
         {isPlaying ? (
-          /* Sound ON Icon: minimalist speaker with subtle acoustic waves */
+          /* Sound ON: Speaker with gentle acoustic waves */
           <svg
             viewBox="0 0 24 24"
             fill="none"
@@ -173,12 +139,16 @@ export const BackgroundMusic: React.FC = () => {
             className={styles.icon}
             aria-hidden="true"
           >
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" fillOpacity="0.12" />
+            <polygon
+              points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"
+              fill="currentColor"
+              fillOpacity="0.12"
+            />
             <path d="M15.5 8.5a5 5 0 0 1 0 7" />
             <path d="M18.8 5.2a9.5 9.5 0 0 1 0 13.6" />
           </svg>
         ) : (
-          /* Sound OFF Icon: minimalist speaker with subtle muted cross */
+          /* Sound OFF: Speaker with subtle muted cross */
           <svg
             viewBox="0 0 24 24"
             fill="none"
@@ -189,7 +159,11 @@ export const BackgroundMusic: React.FC = () => {
             className={styles.icon}
             aria-hidden="true"
           >
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" fillOpacity="0.12" />
+            <polygon
+              points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"
+              fill="currentColor"
+              fillOpacity="0.12"
+            />
             <line x1="22" y1="9" x2="16" y2="15" />
             <line x1="16" y1="9" x2="22" y2="15" />
           </svg>
