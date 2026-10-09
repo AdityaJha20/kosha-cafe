@@ -1,6 +1,5 @@
 import React from 'react';
-import artworkWebP from '../assets/images/kosha-coming-soon.webp';
-import artworkJpg from '../assets/images/kosha-coming-soon.jpg';
+import artworkImage from '../assets/images/kosha-coming-soon-artwork.jpeg';
 import { BackgroundMusic } from './BackgroundMusic';
 import styles from './ComingSoon.module.css';
 
@@ -27,18 +26,15 @@ export const ComingSoon: React.FC = () => {
         <div className={styles.artworkShowcase}>
           {/* Centered Dominant Artwork */}
           <div className={styles.artworkCard}>
-            <picture>
-              <source srcSet={artworkWebP} type="image/webp" />
-              <img
-                src={artworkJpg}
-                alt="KOSHA Café &amp; Experience Studio Coming Soon artwork featuring watercolor illustrations of coffee, burger, sandwich, and cakes, located at LSC C6 &amp; C7, Vasant Kunj, New Delhi, Opp DPS"
-                className={styles.artworkImage}
-                width="1024"
-                height="576"
-                fetchPriority="high"
-                decoding="async"
-              />
-            </picture>
+            <img
+              src={artworkImage}
+              alt="KOSHA Café &amp; Experience Studio Coming Soon artwork featuring watercolor illustrations of coffee, burger, sandwich, and cakes, located at LSC C6 &amp; C7, Vasant Kunj, New Delhi, Opp DPS"
+              className={styles.artworkImage}
+              width="1024"
+              height="576"
+              fetchPriority="high"
+              decoding="async"
+            />
           </div>
 
           {/* Dedicated Mobile Details Card (Ensures complete readability on small screens) */}
