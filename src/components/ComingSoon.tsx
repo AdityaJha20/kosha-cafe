@@ -9,7 +9,15 @@ export const ComingSoon: React.FC = () => {
       {/* Top Header Navigation */}
       <header className={styles.header} role="banner">
         <div className={styles.brandNav}>
-          <span className={styles.brandLogoText}>KOSHA</span>
+          <img
+            src="/kosha-logo.png"
+            alt="KOSHA Café &amp; Experience Studio"
+            className={styles.brandLogo}
+            width="2167"
+            height="726"
+            fetchPriority="high"
+            decoding="async"
+          />
           <span className={styles.brandSubtext}>— Café &amp; Experience Studio</span>
         </div>
         <div className={styles.statusBadge} aria-label="Status: Coming Soon">

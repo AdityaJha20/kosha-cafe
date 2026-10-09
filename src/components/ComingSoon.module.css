@@ -52,12 +52,12 @@
   gap: var(--space-1);
 }
 
-.brandLogoText {
-  font-size: 1.125rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--kosha-charcoal);
+.brandLogo {
+  height: 32px;
+  width: auto;
+  max-width: 130px;
+  object-fit: contain;
+  display: block;
 }
 
 .brandSubtext {
@@ -324,6 +324,11 @@
     padding: var(--space-1) 0 var(--space-2);
   }
 
+  .brandLogo {
+    height: 28px;
+    max-width: 110px;
+  }
+
   .mainContent {
     padding: var(--space-1) 0 var(--space-3);
   }
@@ -359,9 +364,9 @@
     padding: 8px 10px;
   }
 
-  .brandLogoText {
-    font-size: 1rem;
-    letter-spacing: 0.1em;
+  .brandLogo {
+    height: 24px;
+    max-width: 95px;
   }
 
   .statusBadge {
