@@ -1,0 +1,405 @@
+/* ==========================================================================
+   KOSHA — Floating Island Capsule Navbar Styles
+   Faithful reproduction of Concept C ("Floating Island Capsule")
+   ========================================================================== */
+
+.kosha-header-wrapper {
+  position: fixed;
+  top: 32px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  padding: 0 24px;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Intro transition states */
+.kosha-header-wrapper.intro-hidden {
+  opacity: 0;
+  transform: translateY(-16px) scale(0.98);
+  pointer-events: none;
+}
+
+.kosha-header-wrapper.intro-revealing {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.kosha-header-wrapper.intro-ready {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* The Floating Capsule */
+.kosha-navbar-capsule {
+  pointer-events: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1060px;
+  height: 62px;
+  background-color: var(--capsule-surface, #FAF6EE);
+  border: 1px solid var(--capsule-border, rgba(185, 167, 142, 0.42));
+  border-radius: 9999px;
+  box-shadow: 0 8px 30px -4px rgba(48, 47, 43, 0.08), 0 2px 8px -2px rgba(48, 47, 43, 0.04);
+  padding: 0 10px 0 20px;
+  box-sizing: border-box;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Left: Logo container */
+.kosha-navbar-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+  outline: none;
+  padding: 4px 6px;
+  border-radius: 8px;
+  transition: opacity 0.2s ease;
+}
+
+.kosha-navbar-brand:focus-visible {
+  outline: 2px solid var(--kosha-green-deep, #283726);
+  outline-offset: 4px;
+}
+
+.kosha-navbar-brand:hover {
+  opacity: 0.92;
+}
+
+.kosha-navbar-logo {
+  height: 36px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: opacity 0.3s ease;
+}
+
+/* During the final settle step of intro, hide navbar logo so moving clone matches seamlessly */
+.kosha-navbar-logo.logo-dormant {
+  opacity: 0;
+}
+
+/* Center: Desktop Navigation Links */
+.kosha-desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.kosha-nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.kosha-nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  font-family: var(--font-family-base);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  color: #444841;
+  text-decoration: none;
+  border-radius: 9999px;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+  outline: none;
+}
+
+.kosha-nav-link:hover {
+  color: #1C1C18;
+  background-color: rgba(48, 47, 43, 0.04);
+}
+
+.kosha-nav-link:focus-visible {
+  outline: 2px solid var(--kosha-green-deep, #283726);
+  outline-offset: 2px;
+}
+
+/* Active Pill (Pale Sage Pill as seen for About in Stitch Reference) */
+.kosha-nav-link.active {
+  background-color: var(--sage-pill-bg, rgba(113, 131, 106, 0.16));
+  color: var(--sage-pill-text, #283726);
+  font-weight: 600;
+  padding: 8px 18px;
+}
+
+.kosha-nav-link.active:hover {
+  background-color: rgba(113, 131, 106, 0.24);
+  color: #1C1C18;
+}
+
+/* Right: Primary CTA */
+.kosha-navbar-cta-wrapper {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.kosha-navbar-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 44px;
+  padding: 0 22px;
+  background-color: var(--kosha-green-deep, #283726);
+  color: var(--kosha-cream, #F5F0E5);
+  font-family: var(--font-family-base);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(40, 55, 38, 0.18);
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  outline: none;
+  user-select: none;
+}
+
+.kosha-navbar-cta:hover {
+  background-color: #1E2B1C;
+  box-shadow: 0 4px 12px rgba(40, 55, 38, 0.25);
+}
+
+.kosha-navbar-cta:active {
+  transform: scale(0.98);
+}
+
+.kosha-navbar-cta:focus-visible {
+  outline: 2px solid var(--kosha-green-deep, #283726);
+  outline-offset: 3px;
+}
+
+.kosha-cta-arrow {
+  display: inline-block;
+  font-family: system-ui, -apple-system, sans-serif;
+  transition: transform 0.2s ease;
+}
+
+.kosha-navbar-cta:hover .kosha-cta-arrow {
+  transform: translateX(2px);
+}
+
+/* Mobile Toggle Button */
+.kosha-mobile-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  color: #302F2B;
+  outline: none;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  transition: background-color 0.2s ease;
+}
+
+.kosha-mobile-toggle:hover {
+  background-color: rgba(48, 47, 43, 0.05);
+}
+
+.kosha-mobile-toggle:focus-visible {
+  outline: 2px solid var(--kosha-green-deep, #283726);
+  outline-offset: 2px;
+}
+
+.kosha-toggle-icon {
+  width: 22px;
+  height: 16px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.kosha-toggle-bar {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: #302F2B;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  transform-origin: center;
+}
+
+.kosha-toggle-icon.is-open .kosha-toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.kosha-toggle-icon.is-open .kosha-toggle-bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.kosha-toggle-icon.is-open .kosha-toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile Drawer / Overlay */
+.kosha-mobile-drawer-backdrop {
+  display: none;
+}
+
+.kosha-mobile-menu-card {
+  display: none;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .kosha-header-wrapper {
+    top: 16px;
+    padding: 0 16px;
+  }
+
+  .kosha-navbar-capsule {
+    height: 56px;
+    padding: 0 8px 0 16px;
+  }
+
+  .kosha-navbar-logo {
+    height: 30px;
+    max-width: 110px;
+  }
+
+  .kosha-desktop-nav {
+    display: none !important;
+  }
+
+  .kosha-navbar-cta-wrapper {
+    display: none !important;
+  }
+
+  .kosha-mobile-toggle {
+    display: flex !important;
+  }
+
+  /* Mobile Backdrop */
+  .kosha-mobile-drawer-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(48, 47, 43, 0.35);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 98;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .kosha-mobile-drawer-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Mobile Dropdown / Floating Card */
+  .kosha-mobile-menu-card {
+    display: block;
+    position: fixed;
+    top: 80px;
+    left: 16px;
+    right: 16px;
+    background-color: #FAF6EE;
+    border: 1px solid rgba(185, 167, 142, 0.42);
+    border-radius: 24px;
+    box-shadow: 0 16px 40px -8px rgba(48, 47, 43, 0.15);
+    padding: 24px 20px;
+    z-index: 99;
+    opacity: 0;
+    transform: translateY(-12px) scale(0.97);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .kosha-mobile-menu-card.is-open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  .kosha-mobile-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style: none;
+    margin: 0 0 20px 0;
+    padding: 0;
+  }
+
+  .kosha-mobile-nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    font-family: var(--font-family-base);
+    font-size: 16px;
+    font-weight: 500;
+    color: #444841;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .kosha-mobile-nav-link:hover,
+  .kosha-mobile-nav-link:focus-visible {
+    background-color: rgba(48, 47, 43, 0.05);
+    color: #1C1C18;
+  }
+
+  .kosha-mobile-nav-link.active {
+    background-color: var(--sage-pill-bg, rgba(113, 131, 106, 0.16));
+    color: var(--sage-pill-text, #283726);
+    font-weight: 600;
+  }
+
+  .kosha-mobile-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 48px;
+    background-color: var(--kosha-green-deep, #283726);
+    color: var(--kosha-cream, #F5F0E5);
+    font-family: var(--font-family-base);
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 9999px;
+    box-shadow: 0 2px 10px rgba(40, 55, 38, 0.2);
+    transition: background-color 0.2s ease;
+  }
+
+  .kosha-mobile-cta:hover {
+    background-color: #1E2B1C;
+  }
+}

@@ -1,0 +1,285 @@
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import './CinematicIntro.css';
+
+export interface CinematicIntroProps {
+  navbarLogoRef: React.RefObject<HTMLImageElement | null>;
+  onIntroStart?: () => void;
+  onLogoTransitStart?: () => void;
+  onComplete: () => void;
+  videoSrc?: string;
+  logoSrc?: string;
+}
+
+export const CinematicIntro: React.FC<CinematicIntroProps> = ({
+  navbarLogoRef,
+  onIntroStart,
+  onLogoTransitStart,
+  onComplete,
+  videoSrc = '/videos/kosha-logo-intro.mp4',
+  logoSrc = '/kosha-logo.png',
+}) => {
+  const [phase, setPhase] = useState<
+    'init' | 'playing' | 'hold' | 'transiting' | 'completed'
+  >('init');
+
+  const [travelingStyle, setTravelingStyle] = useState<React.CSSProperties>({
+    display: 'none',
+  });
+
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const stageRef = useRef<HTMLDivElement | null>(null);
+  const travelingLogoRef = useRef<HTMLImageElement | null>(null);
+  const safetyTimeoutRef = useRef<number | null>(null);
+
+  const finishImmediately = useCallback(() => {
+    if (safetyTimeoutRef.current) {
+      window.clearTimeout(safetyTimeoutRef.current);
+    }
+    setPhase('completed');
+    onComplete();
+  }, [onComplete]);
+
+  // Initial check: query param or reduced motion preference
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const forceIntro = params.get('intro') === '1';
+    const skipIntro =
+      params.get('skipIntro') === '1' || params.get('intro') === '0';
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    // Respect user skip param or reduced motion (unless forceIntro override is present)
+    if ((skipIntro || prefersReducedMotion) && !forceIntro) {
+      finishImmediately();
+      return;
+    }
+
+    setPhase('playing');
+    onIntroStart?.();
+
+    // Max fallback safety timeout: if video hangs or takes > 6s, finish gracefully
+    safetyTimeoutRef.current = window.setTimeout(() => {
+      finishImmediately();
+    }, 6500);
+
+    return () => {
+      if (safetyTimeoutRef.current) {
+        window.clearTimeout(safetyTimeoutRef.current);
+      }
+    };
+  }, [finishImmediately, onIntroStart]);
+
+  // Lock body scroll while intro is playing or transitioning
+  useEffect(() => {
+    if (phase !== 'completed') {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [phase]);
+
+  // Handle Autoplay & Playback
+  useEffect(() => {
+    if (phase !== 'playing') return;
+
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.playsInline = true;
+
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay blocked by browser policy -> gracefully bypass
+        finishImmediately();
+      });
+    }
+  }, [phase, finishImmediately]);
+
+  // Start transition from video to navbar
+  const startTransition = useCallback(() => {
+    if (phase === 'transiting' || phase === 'completed') return;
+
+    setPhase('hold');
+
+    // Hold final frame for 250ms, then trigger logo flight
+    window.setTimeout(() => {
+      const video = videoRef.current;
+      const targetLogo = navbarLogoRef.current;
+
+      if (!video || !targetLogo) {
+        finishImmediately();
+        return;
+      }
+
+      const videoRect = video.getBoundingClientRect();
+      const containerW = videoRect.width;
+      const containerH = videoRect.height;
+
+      // The video is 16:9 and styled with object-fit: contain
+      let renderedW: number;
+      let renderedH: number;
+      let renderedLeft: number;
+      let renderedTop: number;
+
+      const videoAspect = 16 / 9;
+      const containerAspect = containerW / (containerH || 1);
+
+      if (containerAspect > videoAspect) {
+        // Pillarboxed horizontally: video height fills container, width is scaled
+        renderedH = containerH;
+        renderedW = containerH * videoAspect;
+        renderedLeft = videoRect.left + (containerW - renderedW) / 2;
+        renderedTop = videoRect.top;
+      } else {
+        // Letterboxed vertically: video width fills container, height is scaled
+        renderedW = containerW;
+        renderedH = containerW / videoAspect;
+        renderedLeft = videoRect.left;
+        renderedTop = videoRect.top + (containerH - renderedH) / 2;
+      }
+
+      // In the 16:9 video frame, the scaled logo artwork occupies 29.01% of video width (557px / 1920px) and is centered.
+      // In kosha-logo.png, the artwork occupies 94.09% of PNG width (2039 / 2167).
+      // Ratio of PNG width to 16:9 video width = (557/1920) / (2039/2167) ≈ 0.30832
+      const startWidth = renderedW * 0.30832;
+      const startHeight = startWidth * (726 / 2167); // Exact aspect ratio of kosha-logo.png
+      const startLeft = renderedLeft + (renderedW - startWidth) / 2;
+      const startTop = renderedTop + (renderedH - startHeight) / 2;
+
+      // Position traveling logo initially exactly over the video's final frame
+      setTravelingStyle({
+        position: 'fixed',
+        left: `${startLeft}px`,
+        top: `${startTop}px`,
+        width: `${startWidth}px`,
+        height: `${startHeight}px`,
+        opacity: 1,
+        transform: 'translate(0px, 0px) scale(1)',
+        display: 'block',
+      });
+
+      setPhase('transiting');
+      onLogoTransitStart?.();
+
+      // Trigger movement to navbar in next frame
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          // Re-measure target in case navbar just revealed
+          const freshTargetRect = targetLogo.getBoundingClientRect();
+          const targetH = freshTargetRect.height > 0 ? freshTargetRect.height : 36;
+          const targetL = freshTargetRect.left;
+          const targetT = freshTargetRect.top;
+
+          const deltaX = targetL - startLeft;
+          const deltaY = targetT - startTop;
+          const scale = targetH / startHeight;
+
+          setTravelingStyle({
+            position: 'fixed',
+            left: `${startLeft}px`,
+            top: `${startTop}px`,
+            width: `${startWidth}px`,
+            height: `${startHeight}px`,
+            opacity: 1,
+            transform: `translate(${deltaX}px, ${deltaY}px) scale(${scale})`,
+            display: 'block',
+          });
+        });
+      });
+
+      // After transit animation ends (850ms), complete the transition
+      window.setTimeout(() => {
+        setPhase('completed');
+        onComplete();
+      }, 900);
+    }, 280);
+  }, [phase, navbarLogoRef, finishImmediately, onLogoTransitStart, onComplete]);
+
+  // Video timeupdate check for near-end detection
+  const handleTimeUpdate = () => {
+    const video = videoRef.current;
+    if (!video || phase !== 'playing') return;
+
+    if (video.duration && video.currentTime >= video.duration - 0.2) {
+      video.pause();
+      startTransition();
+    }
+  };
+
+  const handleVideoEnded = () => {
+    startTransition();
+  };
+
+  const handleVideoError = () => {
+    finishImmediately();
+  };
+
+  if (phase === 'completed') {
+    return null;
+  }
+
+  return (
+    <>
+      <div
+        className={`kosha-intro-overlay ${
+          phase === 'transiting' ? 'fade-out' : ''
+        }`}
+        role="region"
+        aria-label="KOSHA Cinematic Opening Intro"
+      >
+        {/* Accessible Skip Button */}
+        <button
+          type="button"
+          className="kosha-intro-skip-btn"
+          onClick={finishImmediately}
+          aria-label="Skip introductory animation"
+        >
+          <span>Skip intro</span>
+          <span className="kosha-skip-arrow" aria-hidden="true">
+            →
+          </span>
+        </button>
+
+        {/* Video Stage */}
+        <div ref={stageRef} className="kosha-intro-stage">
+          <video
+            ref={videoRef}
+            src={videoSrc}
+            poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 1080'%3E%3Crect width='100%25' height='100%25' fill='%23F5F0E5'/%3E%3C/svg%3E"
+            preload="auto"
+            className={`kosha-intro-video ${
+              phase === 'hold' || phase === 'transiting' ? 'video-fade-out' : ''
+            }`}
+            muted
+            playsInline
+            autoPlay
+            onTimeUpdate={handleTimeUpdate}
+            onEnded={handleVideoEnded}
+            onError={handleVideoError}
+          />
+        </div>
+      </div>
+
+      {/* Traveling Logo (FLIP movement to navbar) */}
+      {phase === 'transiting' && (
+        <img
+          ref={travelingLogoRef}
+          src={logoSrc}
+          alt="KOSHĀ Logo"
+          className="kosha-traveling-logo"
+          style={travelingStyle}
+          aria-hidden="true"
+        />
+      )}
+    </>
+  );
+};
+
+export default CinematicIntro;

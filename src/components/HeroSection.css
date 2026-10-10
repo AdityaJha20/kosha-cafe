@@ -1,0 +1,565 @@
+/* ==========================================================================
+   KOSHA — Hero Section Styles
+   Design Direction: Warm Editorial Luxury & Restrained Claymorphism
+   ========================================================================== */
+
+.kosha-hero-section {
+  width: 100%;
+  min-height: calc(100vh - 84px);
+  min-height: calc(100dvh - 84px);
+  background-color: var(--kosha-cream, #F5F0E5);
+  padding-top: clamp(100px, 14vh, 140px);
+  padding-bottom: clamp(60px, 8vh, 100px);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.kosha-hero-inner {
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding-inline: clamp(24px, 4vw, 48px);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(36px, 5vw, 68px);
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   Left Column: Editorial Copy & Typographic Hierarchy
+   -------------------------------------------------------------------------- */
+
+.kosha-hero-text-col {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.5vw, 28px);
+  max-width: 580px;
+}
+
+/* Eyebrow Label */
+.kosha-hero-eyebrow-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.kosha-hero-eyebrow-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background-color: var(--capsule-surface, #FAF6EE);
+  border: 1px solid rgba(185, 167, 142, 0.45);
+  border-radius: 9999px;
+  font-family: var(--font-family-base);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--kosha-charcoal, #302F2B);
+  box-shadow: 0 2px 6px rgba(48, 47, 43, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.kosha-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--kosha-green, #71836A);
+}
+
+/* Main Headline */
+.kosha-hero-headline {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(2.85rem, 5.4vw, 4.4rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--kosha-charcoal, #302F2B);
+  display: flex;
+  flex-direction: column;
+}
+
+.kosha-headline-line {
+  display: block;
+}
+
+.kosha-headline-italic {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--kosha-green-deep, #283726);
+  letter-spacing: -0.02em;
+}
+
+/* Tagline & Supporting Copy */
+.kosha-hero-copy-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kosha-hero-tagline {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--kosha-green, #71836A);
+}
+
+.kosha-hero-description {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(1.05rem, 1.25vw, 1.15rem);
+  line-height: 1.62;
+  color: rgba(48, 47, 43, 0.78);
+  max-width: 46ch;
+}
+
+/* Action CTAs */
+.kosha-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.kosha-hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  background-color: var(--kosha-green-deep, #283726);
+  color: #FAF6EE;
+  border: 1px solid rgba(40, 55, 38, 0.9);
+  border-radius: 9999px;
+  font-family: var(--font-family-base);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow:
+    0 6px 18px -2px rgba(40, 55, 38, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+  outline: none;
+}
+
+.kosha-hero-btn-primary:hover {
+  background-color: #1E2B1C;
+  transform: translateY(-1px);
+  box-shadow:
+    0 8px 22px -2px rgba(40, 55, 38, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.kosha-hero-btn-primary:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 8px rgba(40, 55, 38, 0.2);
+}
+
+.kosha-hero-btn-primary:focus-visible {
+  outline: 2px solid var(--kosha-charcoal, #302F2B);
+  outline-offset: 2px;
+}
+
+.kosha-btn-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.kosha-hero-btn-primary:hover .kosha-btn-arrow {
+  transform: translateX(3px);
+}
+
+.kosha-hero-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 13px 24px;
+  background-color: rgba(250, 246, 238, 0.85);
+  color: var(--kosha-charcoal, #302F2B);
+  border: 1px solid rgba(185, 167, 142, 0.52);
+  border-radius: 9999px;
+  font-family: var(--font-family-base);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(48, 47, 43, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease,
+    color 0.2s ease;
+  outline: none;
+}
+
+.kosha-hero-btn-secondary:hover {
+  background-color: #FAF6EE;
+  border-color: rgba(185, 167, 142, 0.85);
+  color: #1C1C18;
+  transform: translateY(-1px);
+}
+
+.kosha-hero-btn-secondary:active {
+  transform: translateY(1px);
+}
+
+.kosha-hero-btn-secondary:focus-visible {
+  outline: 2px solid var(--kosha-green-deep, #283726);
+  outline-offset: 2px;
+}
+
+/* Informational Row */
+.kosha-hero-info-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2.5vw, 32px);
+  padding-top: clamp(16px, 2.2vw, 24px);
+  border-top: 1px solid rgba(185, 167, 142, 0.35);
+  margin-top: 8px;
+}
+
+.kosha-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.kosha-info-label {
+  font-family: var(--font-family-base);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: rgba(48, 47, 43, 0.52);
+}
+
+.kosha-info-value {
+  font-family: var(--font-family-base);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--kosha-charcoal, #302F2B);
+  white-space: normal;
+  line-height: 1.35;
+}
+
+/* --------------------------------------------------------------------------
+   Right Column: Photographic Feature Card & Restrained Claymorphism
+   -------------------------------------------------------------------------- */
+
+.kosha-hero-media-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.kosha-media-card {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: var(--capsule-surface, #FAF6EE);
+  padding: 12px;
+  border-radius: 32px;
+  border: 1px solid rgba(185, 167, 142, 0.38);
+  box-shadow:
+    0 24px 60px -16px rgba(48, 47, 43, 0.12),
+    0 6px 20px -4px rgba(48, 47, 43, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 0.85);
+  box-sizing: border-box;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.kosha-media-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 28px 68px -16px rgba(48, 47, 43, 0.16),
+    0 8px 24px -4px rgba(48, 47, 43, 0.06),
+    inset 0 1px 1px rgba(255, 255, 255, 0.95);
+}
+
+/* Image Inner Frame */
+.kosha-image-frame {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 22px;
+  overflow: hidden;
+  position: relative;
+  background-color: rgba(185, 167, 142, 0.18);
+}
+
+.kosha-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.002);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kosha-media-card:hover .kosha-hero-image {
+  transform: scale(1.02);
+}
+
+/* Circular Claymorphic Brand Badge */
+.kosha-clay-badge {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  z-index: 10;
+  width: 98px;
+  height: 98px;
+  border-radius: 50%;
+  background: #FAF6EE;
+  border: 1px solid rgba(185, 167, 142, 0.45);
+  box-shadow:
+    0 12px 28px -4px rgba(48, 47, 43, 0.14),
+    0 3px 8px rgba(48, 47, 43, 0.05),
+    inset 0 2px 2px rgba(255, 255, 255, 0.9),
+    inset 0 -2px 3px rgba(185, 167, 142, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8px;
+  box-sizing: border-box;
+  user-select: none;
+  animation: koshaBadgeHover 6s ease-in-out infinite;
+}
+
+@keyframes koshaBadgeHover {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.kosha-badge-title {
+  font-family: var(--font-family-base);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--kosha-green-deep, #283726);
+  line-height: 1.2;
+  margin-bottom: 3px;
+}
+
+.kosha-badge-tagline {
+  font-family: var(--font-family-base);
+  font-size: 8.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: rgba(48, 47, 43, 0.78);
+  letter-spacing: 0.02em;
+}
+
+/* --------------------------------------------------------------------------
+   Entrance Animations Choreography
+   -------------------------------------------------------------------------- */
+
+.hero-hidden .kosha-hero-eyebrow-wrapper,
+.hero-hidden .kosha-hero-headline,
+.hero-hidden .kosha-hero-copy-group,
+.hero-hidden .kosha-hero-actions,
+.hero-hidden .kosha-hero-info-row,
+.hero-hidden .kosha-media-card,
+.hero-hidden .kosha-clay-badge {
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+}
+
+.hero-revealed .kosha-hero-eyebrow-wrapper {
+  animation: heroFadeUp 650ms cubic-bezier(0.16, 1, 0.3, 1) 120ms forwards;
+}
+
+.hero-revealed .kosha-hero-headline {
+  animation: heroFadeUp 750ms cubic-bezier(0.16, 1, 0.3, 1) 240ms forwards;
+}
+
+.hero-revealed .kosha-hero-copy-group {
+  animation: heroFadeUp 750ms cubic-bezier(0.16, 1, 0.3, 1) 360ms forwards;
+}
+
+.hero-revealed .kosha-hero-actions {
+  animation: heroFadeUp 750ms cubic-bezier(0.16, 1, 0.3, 1) 480ms forwards;
+}
+
+.hero-revealed .kosha-hero-info-row {
+  animation: heroFadeUp 750ms cubic-bezier(0.16, 1, 0.3, 1) 600ms forwards;
+}
+
+.hero-revealed .kosha-media-card {
+  animation: heroCardReveal 850ms cubic-bezier(0.16, 1, 0.3, 1) 280ms forwards;
+}
+
+.hero-revealed .kosha-clay-badge {
+  animation: heroBadgeReveal 700ms cubic-bezier(0.16, 1, 0.3, 1) 650ms forwards,
+             koshaBadgeHover 6s ease-in-out 1350ms infinite;
+}
+
+@keyframes heroFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroCardReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes heroBadgeReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Adaptations: Tablet & Mobile
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .kosha-hero-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    max-width: 680px;
+  }
+
+  .kosha-hero-text-col {
+    max-width: 100%;
+  }
+
+  .kosha-hero-headline {
+    font-size: clamp(2.6rem, 5vw, 3.4rem);
+  }
+
+  .kosha-media-card {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .kosha-clay-badge {
+    top: -14px;
+    right: -14px;
+    width: 92px;
+    height: 92px;
+  }
+}
+
+@media (max-width: 768px) {
+  .kosha-hero-section {
+    padding-top: 108px;
+    padding-bottom: 48px;
+  }
+
+  .kosha-hero-inner {
+    gap: 40px;
+    padding-inline: 20px;
+  }
+
+  .kosha-hero-headline {
+    font-size: 2.5rem;
+    line-height: 1.12;
+  }
+
+  .kosha-hero-actions {
+    gap: 12px;
+  }
+
+  .kosha-hero-info-row {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px 16px;
+    padding-top: 16px;
+  }
+
+  .kosha-info-item {
+    min-width: 0;
+  }
+
+  .kosha-media-card {
+    max-width: 100%;
+    padding: 10px;
+    border-radius: 28px;
+  }
+
+  .kosha-clay-badge {
+    top: 12px;
+    right: 12px;
+    width: 82px;
+    height: 82px;
+    box-shadow: 0 8px 20px rgba(48, 47, 43, 0.16);
+  }
+}
+
+@media (max-width: 540px) {
+  .kosha-hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .kosha-hero-btn-primary,
+  .kosha-hero-btn-secondary {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .hero-hidden .kosha-hero-eyebrow-wrapper,
+  .hero-hidden .kosha-hero-headline,
+  .hero-hidden .kosha-hero-copy-group,
+  .hero-hidden .kosha-hero-actions,
+  .hero-hidden .kosha-hero-info-row,
+  .hero-hidden .kosha-media-card,
+  .hero-hidden .kosha-clay-badge,
+  .hero-revealed .kosha-hero-eyebrow-wrapper,
+  .hero-revealed .kosha-hero-headline,
+  .hero-revealed .kosha-hero-copy-group,
+  .hero-revealed .kosha-hero-actions,
+  .hero-revealed .kosha-hero-info-row,
+  .hero-revealed .kosha-media-card,
+  .hero-revealed .kosha-clay-badge {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .kosha-clay-badge {
+    animation: none !important;
+  }
+
+  .kosha-media-card:hover,
+  .kosha-hero-btn-primary:hover,
+  .kosha-hero-btn-secondary:hover {
+    transform: none !important;
+  }
+}

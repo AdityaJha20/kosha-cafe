@@ -3,9 +3,17 @@
   --kosha-cream: #F5F0E5;
   --kosha-charcoal: #302F2B;
   --kosha-green: #71836A;
+  --kosha-green-deep: #283726;
   --kosha-terracotta: #C7684E;
   --kosha-ochre: #D6A33C;
   --kosha-taupe: #B9A78E;
+
+  /* Floating Capsule Tokens */
+  --capsule-surface: #FAF6EE;
+  --capsule-border: rgba(185, 167, 142, 0.42);
+  --capsule-shadow: 0 8px 30px -4px rgba(48, 47, 43, 0.08), 0 2px 8px -2px rgba(48, 47, 43, 0.04);
+  --sage-pill-bg: rgba(113, 131, 106, 0.16);
+  --sage-pill-text: #283726;
 
   /* Neutrals & Alpha Layers */
   --kosha-charcoal-80: rgba(48, 47, 43, 0.80);

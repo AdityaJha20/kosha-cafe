@@ -37,6 +37,43 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
+  background-color: var(--kosha-cream, #F5F0E5);
+}
+
+.kosha-app-root {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--kosha-cream, #F5F0E5);
+}
+
+.kosha-main-canvas {
+  flex: 1;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--kosha-cream, #F5F0E5);
+}
+
+/* Brand scrollbar matching #F5F0E5 canvas */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5F0E5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(185, 167, 142, 0.45);
+  border-radius: 9999px;
+  border: 2px solid #F5F0E5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(185, 167, 142, 0.7);
 }
 
 /* Accessible Screen Reader Utility */
@@ -52,22 +89,6 @@ body {
   border-width: 0;
 }
 
-/* Subtle Entrance Animation */
-@keyframes koshaFadeUp {
-  0% {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.fade-in-entrance {
-  animation: koshaFadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
 /* Motion Preferences */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -77,11 +98,5 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-
-  .fade-in-entrance {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
   }
 }
