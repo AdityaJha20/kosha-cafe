@@ -1,0 +1,594 @@
+/* ==========================================================================
+   KOSHA — Philosophy Section Styles
+   "Five elements. One experience."
+   Design Direction: Warm Editorial Luxury, Architectural Spacing, Quiet Polish
+   ========================================================================== */
+
+.kosha-philosophy-section {
+  width: 100%;
+  background-color: var(--kosha-cream, #F5F0E5);
+  padding-top: clamp(68px, 9vh, 100px);
+  padding-bottom: clamp(72px, 10vh, 120px);
+  scroll-margin-top: clamp(84px, 11vh, 110px);
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.kosha-philosophy-inner {
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding-inline: clamp(24px, 4vw, 48px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   A. Section Introduction Header
+   -------------------------------------------------------------------------- */
+
+.kosha-philosophy-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: clamp(36px, 5vw, 56px);
+}
+
+.kosha-philosophy-index-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.kosha-philosophy-index-left {
+  font-family: var(--font-family-base);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(48, 47, 43, 0.65);
+}
+
+.kosha-philosophy-index-right {
+  font-family: var(--font-family-base);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(48, 47, 43, 0.45);
+}
+
+.kosha-philosophy-divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(185, 167, 142, 0.38);
+  margin-top: 14px;
+  margin-bottom: clamp(28px, 4vw, 42px);
+}
+
+.kosha-philosophy-intro-row {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(28px, 4vw, 64px);
+  align-items: flex-end;
+}
+
+.kosha-philosophy-headline-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.kosha-philosophy-headline {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(2.75rem, 5.2vw, 4.3rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--kosha-charcoal, #302F2B);
+}
+
+.kosha-philo-line {
+  display: block;
+}
+
+.kosha-philo-italic {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--kosha-green-deep, #283726);
+  letter-spacing: -0.025em;
+}
+
+.kosha-philosophy-desc-wrap {
+  display: flex;
+  align-items: flex-end;
+}
+
+.kosha-philosophy-lead {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(1.05rem, 1.22vw, 1.18rem);
+  line-height: 1.62;
+  color: rgba(48, 47, 43, 0.76);
+  max-width: 44ch;
+}
+
+/* --------------------------------------------------------------------------
+   B. Main Interactive Composition Grid (40% Story / 60% Visual)
+   -------------------------------------------------------------------------- */
+
+.kosha-philosophy-main-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.35fr;
+  gap: clamp(32px, 4.5vw, 64px);
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Left Column: Active Element Story */
+.kosha-philosophy-story-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 480px;
+}
+
+.kosha-philo-story-content {
+  display: flex;
+  flex-direction: column;
+  animation: philoContentFadeIn 0.35s cubic-bezier(0.22, 0.7, 0.25, 1) both;
+}
+
+@keyframes philoContentFadeIn {
+  from {
+    opacity: 0.25;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.kosha-philo-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.kosha-philo-index {
+  font-family: var(--font-family-base);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--kosha-green, #71836A);
+}
+
+.kosha-philo-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: rgba(185, 167, 142, 0.6);
+}
+
+.kosha-philo-label {
+  font-family: var(--font-family-base);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(48, 47, 43, 0.58);
+}
+
+.kosha-philo-title {
+  margin: 0 0 10px 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(2.2rem, 3.4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--kosha-charcoal, #302F2B);
+  text-transform: uppercase;
+}
+
+.kosha-philo-statement {
+  margin: 0 0 14px 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(1.1rem, 1.35vw, 1.25rem);
+  font-weight: 700;
+  line-height: 1.38;
+  color: var(--kosha-green-deep, #283726);
+}
+
+.kosha-philo-body {
+  margin: 0 0 22px 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(0.96rem, 1.08vw, 1.04rem);
+  line-height: 1.64;
+  color: rgba(48, 47, 43, 0.78);
+  max-width: 44ch;
+}
+
+/* Callout Panel */
+.kosha-philo-callout {
+  background-color: var(--capsule-surface, #FAF6EE);
+  border: 1px solid rgba(185, 167, 142, 0.42);
+  border-radius: 14px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 8px rgba(48, 47, 43, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+.kosha-philo-callout-title {
+  font-family: var(--font-family-base);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kosha-green, #71836A);
+}
+
+.kosha-philo-callout-text {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--kosha-charcoal, #302F2B);
+}
+
+/* Traversal Controls */
+.kosha-philo-nav-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(185, 167, 142, 0.28);
+}
+
+.kosha-philo-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: var(--capsule-surface, #FAF6EE);
+  border: 1px solid rgba(185, 167, 142, 0.42);
+  border-radius: 9999px;
+  font-family: var(--font-family-base);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--kosha-charcoal, #302F2B);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  outline: none;
+}
+
+.kosha-philo-nav-btn:hover {
+  background-color: #FAF6EE;
+  border-color: rgba(185, 167, 142, 0.85);
+  transform: translateY(-1px);
+}
+
+.kosha-philo-nav-btn:active {
+  transform: translateY(1px);
+}
+
+.kosha-philo-nav-btn:focus-visible {
+  outline: 2px solid var(--kosha-green-deep, #283726);
+  outline-offset: 2px;
+}
+
+.kosha-philo-nav-counter {
+  font-family: var(--font-family-base);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(48, 47, 43, 0.55);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.kosha-philo-nav-sep {
+  opacity: 0.4;
+}
+
+/* Right Column: Cinematic Photograph Window */
+.kosha-philosophy-visual-col {
+  display: flex;
+  align-items: center;
+}
+
+.kosha-philo-media-frame {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: clamp(18px, 2.2vw, 26px);
+  overflow: hidden;
+  position: relative;
+  background-color: #1E1D1A;
+  border: 1px solid rgba(185, 167, 142, 0.38);
+  box-shadow:
+    0 24px 60px -16px rgba(48, 47, 43, 0.12),
+    0 6px 20px -4px rgba(48, 47, 43, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 0.85);
+  box-sizing: border-box;
+}
+
+.kosha-philo-image-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.45s cubic-bezier(0.22, 0.7, 0.25, 1);
+  will-change: opacity;
+  pointer-events: none;
+}
+
+.kosha-philo-image-layer.is-active {
+  opacity: 1;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.kosha-philo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Image Caption Scrim Overlay - strictly bounded to bottom */
+.kosha-philo-caption-scrim {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  height: 80px;
+  max-height: 35%;
+  padding: 0 20px 16px 20px;
+  background: linear-gradient(to top, rgba(18, 17, 15, 0.6) 0%, rgba(18, 17, 15, 0.15) 60%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.kosha-philo-caption-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background-color: rgba(250, 246, 238, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 9999px;
+  font-family: var(--font-family-base);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--kosha-charcoal, #302F2B);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  animation: philoCaptionFadeIn 0.3s cubic-bezier(0.22, 0.7, 0.25, 1) both;
+}
+
+@keyframes philoCaptionFadeIn {
+  from {
+    opacity: 0.4;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.kosha-philo-caption-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--kosha-green, #71836A);
+}
+
+/* --------------------------------------------------------------------------
+   C. Five-Element Horizontal Selector Beneath the Composition
+   -------------------------------------------------------------------------- */
+
+.kosha-philosophy-selector-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(10px, 1.5vw, 18px);
+  margin-top: clamp(40px, 5vw, 60px);
+  width: 100%;
+}
+
+.kosha-philo-selector-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 18px;
+  background-color: var(--capsule-surface, #FAF6EE);
+  border: 1px solid rgba(185, 167, 142, 0.38);
+  border-radius: 16px;
+  box-sizing: border-box;
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.2s ease;
+  outline: none;
+}
+
+.kosha-philo-selector-item:hover {
+  background-color: #FFFDF9;
+  border-color: rgba(185, 167, 142, 0.65);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px -4px rgba(48, 47, 43, 0.08);
+}
+
+.kosha-philo-selector-item.is-active {
+  background-color: #FFFDF9;
+  border-color: rgba(113, 131, 106, 0.6);
+  box-shadow:
+    0 8px 24px -4px rgba(48, 47, 43, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.kosha-philo-selector-item:focus-visible {
+  outline: 2px solid var(--kosha-green-deep, #283726);
+  outline-offset: 2px;
+}
+
+.kosha-philo-selector-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.kosha-philo-selector-num {
+  font-family: var(--font-family-base);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--kosha-green, #71836A);
+}
+
+.kosha-philo-selector-name {
+  font-family: var(--font-family-base);
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--kosha-charcoal, #302F2B);
+}
+
+.kosha-philo-selector-category {
+  font-family: var(--font-family-base);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(48, 47, 43, 0.52);
+  text-transform: uppercase;
+}
+
+/* Subtle Active Underline Indicator */
+.kosha-philo-selector-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--kosha-green, #71836A);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.22, 0.7, 0.25, 1);
+}
+
+.kosha-philo-selector-item.is-active .kosha-philo-selector-indicator {
+  transform: scaleX(1);
+}
+
+/* --------------------------------------------------------------------------
+   D. Responsive Styles
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .kosha-philosophy-intro-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .kosha-philosophy-main-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .kosha-philosophy-story-col {
+    min-height: auto;
+  }
+
+  .kosha-philosophy-visual-col {
+    order: -1; /* Place photograph above story on tablet & mobile */
+  }
+
+  .kosha-philo-media-frame {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 768px) {
+  .kosha-philosophy-index-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .kosha-philosophy-headline {
+    font-size: clamp(2.2rem, 7vw, 3rem);
+  }
+
+  .kosha-philosophy-selector-row {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;
+    gap: 12px;
+    scrollbar-width: none;
+  }
+
+  .kosha-philosophy-selector-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .kosha-philo-selector-item {
+    flex: 0 0 160px;
+    scroll-snap-align: start;
+    padding: 14px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .kosha-philo-selector-item {
+    flex: 0 0 145px;
+  }
+
+  .kosha-philo-callout {
+    padding: 14px 16px;
+  }
+
+  .kosha-philo-caption-pill {
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+}
+
+/* Reduced Motion Mode */
+@media (prefers-reduced-motion: reduce) {
+  .kosha-philo-story-content,
+  .kosha-philo-image-layer,
+  .kosha-philo-caption-pill,
+  .kosha-philo-selector-indicator,
+  .kosha-philo-selector-item,
+  .kosha-philo-nav-btn {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}
