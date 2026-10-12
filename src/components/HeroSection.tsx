@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import './HeroSection.css';
 
 export interface HeroSectionProps {
@@ -10,6 +10,107 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   isRevealed = true,
   onNavigate,
 }) => {
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const rafIdRef = useRef<number | null>(null);
+  const isTiltingRef = useRef(false);
+  const targetRef = useRef({ rx: 0, ry: 0, ty: 0, scale: 1 });
+
+  const resetCardTransform = useCallback(() => {
+    isTiltingRef.current = false;
+    if (rafIdRef.current !== null) {
+      cancelAnimationFrame(rafIdRef.current);
+      rafIdRef.current = null;
+    }
+    const card = cardRef.current;
+    if (!card) return;
+    card.classList.remove('is-tilting');
+    card.style.setProperty('--tilt-rx', '0deg');
+    card.style.setProperty('--tilt-ry', '0deg');
+    card.style.setProperty('--tilt-ty', '0px');
+    card.style.setProperty('--tilt-scale', '1');
+  }, []);
+
+  const handlePointerEnter = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      if (e.pointerType !== 'mouse') return;
+      if (typeof window === 'undefined') return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      const card = cardRef.current;
+      if (!card) return;
+      isTiltingRef.current = true;
+      card.classList.add('is-tilting');
+    },
+    []
+  );
+
+  const handlePointerMove = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      if (e.pointerType !== 'mouse') return;
+      if (typeof window === 'undefined') return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      const card = cardRef.current;
+      if (!card) return;
+
+      const rect = card.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+
+      isTiltingRef.current = true;
+      if (!card.classList.contains('is-tilting')) {
+        card.classList.add('is-tilting');
+      }
+
+      // Normalized coordinates from -1 to 1 (-1 = left/top, 1 = right/bottom, 0 = center)
+      const nx = Math.max(-1, Math.min(1, ((e.clientX - rect.left) / rect.width) * 2 - 1));
+      const ny = Math.max(-1, Math.min(1, ((e.clientY - rect.top) / rect.height) * 2 - 1));
+
+      // Natural inclination toward cursor (card surface gently inclines toward cursor position):
+      // - Pointer moves top (ny < 0) -> top edge inclines toward viewer/cursor (rx < 0 in CSS)
+      // - Pointer moves right (nx > 0) -> right edge inclines toward viewer/cursor (ry < 0 in CSS)
+      // Max rotation: 4.5 degrees on either axis
+      // Lift: -5px (4-6px range)
+      // Scale: 1.015 (1.01-1.02 range)
+      const maxRot = 4.5;
+      const rx = ny * maxRot;
+      const ry = -nx * maxRot;
+
+      targetRef.current = { rx, ry, ty: -5, scale: 1.015 };
+
+      if (rafIdRef.current === null) {
+        rafIdRef.current = requestAnimationFrame(() => {
+          rafIdRef.current = null;
+          if (!cardRef.current || !isTiltingRef.current) return;
+          const { rx: rX, ry: rY, ty, scale } = targetRef.current;
+          cardRef.current.style.setProperty('--tilt-rx', `${rX.toFixed(2)}deg`);
+          cardRef.current.style.setProperty('--tilt-ry', `${rY.toFixed(2)}deg`);
+          cardRef.current.style.setProperty('--tilt-ty', `${ty.toFixed(1)}px`);
+          cardRef.current.style.setProperty('--tilt-scale', `${scale.toFixed(3)}`);
+        });
+      }
+    },
+    []
+  );
+
+  const handlePointerLeave = useCallback(() => {
+    resetCardTransform();
+  }, [resetCardTransform]);
+
+  useEffect(() => {
+    const handleWindowBlur = () => {
+      resetCardTransform();
+    };
+    window.addEventListener('blur', handleWindowBlur);
+    return () => {
+      window.removeEventListener('blur', handleWindowBlur);
+      isTiltingRef.current = false;
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
+      }
+    };
+  }, [resetCardTransform]);
+
   const handleAnchorClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     id: string
@@ -101,7 +202,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
         {/* Right Column: Tactile Photographic Feature Card */}
         <div className="kosha-hero-media-col">
-          <div className="kosha-media-card">
+          <div
+            ref={cardRef}
+            className="kosha-media-card"
+            onPointerEnter={handlePointerEnter}
+            onPointerMove={handlePointerMove}
+            onPointerLeave={handlePointerLeave}
+            onPointerCancel={handlePointerLeave}
+          >
             {/* Soft Claymorphic Circular Badge */}
             <div
               className="kosha-clay-badge"

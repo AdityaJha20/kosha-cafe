@@ -262,6 +262,10 @@
 }
 
 .kosha-media-card {
+  --tilt-rx: 0deg;
+  --tilt-ry: 0deg;
+  --tilt-ty: 0px;
+  --tilt-scale: 1;
   position: relative;
   width: 100%;
   max-width: 480px;
@@ -274,14 +278,21 @@
     0 6px 20px -4px rgba(48, 47, 43, 0.05),
     inset 0 1px 1px rgba(255, 255, 255, 0.85);
   box-sizing: border-box;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  transform: perspective(1100px) rotateX(var(--tilt-rx, 0deg)) rotateY(var(--tilt-ry, 0deg)) translateY(var(--tilt-ty, 0px)) scale(var(--tilt-scale, 1));
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
 }
 
-.kosha-media-card:hover {
-  transform: translateY(-2px);
+.kosha-media-card.is-tilting {
+  transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.kosha-media-card:hover,
+.kosha-media-card.is-tilting {
   box-shadow:
-    0 28px 68px -16px rgba(48, 47, 43, 0.16),
-    0 8px 24px -4px rgba(48, 47, 43, 0.06),
+    0 30px 72px -16px rgba(48, 47, 43, 0.17),
+    0 10px 24px -4px rgba(48, 47, 43, 0.07),
     inset 0 1px 1px rgba(255, 255, 255, 0.95);
 }
 
@@ -304,7 +315,8 @@
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.kosha-media-card:hover .kosha-hero-image {
+.kosha-media-card:hover .kosha-hero-image,
+.kosha-media-card.is-tilting .kosha-hero-image {
   transform: scale(1.02);
 }
 
@@ -372,7 +384,7 @@
 .hero-hidden .kosha-hero-copy-group,
 .hero-hidden .kosha-hero-actions,
 .hero-hidden .kosha-hero-info-row,
-.hero-hidden .kosha-media-card,
+.hero-hidden .kosha-hero-media-col,
 .hero-hidden .kosha-clay-badge {
   opacity: 0;
   transform: translateY(16px);
@@ -399,7 +411,7 @@
   animation: heroFadeUp 750ms cubic-bezier(0.16, 1, 0.3, 1) 600ms forwards;
 }
 
-.hero-revealed .kosha-media-card {
+.hero-revealed .kosha-hero-media-col {
   animation: heroCardReveal 850ms cubic-bezier(0.16, 1, 0.3, 1) 280ms forwards;
 }
 
@@ -532,6 +544,16 @@
   }
 }
 
+/* Touch devices / Coarse pointer: Disable 3D tilt transforms entirely */
+@media (hover: none), (pointer: coarse) {
+  .kosha-media-card,
+  .kosha-media-card.is-tilting,
+  .kosha-media-card:hover {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   .hero-hidden .kosha-hero-eyebrow-wrapper,
@@ -539,6 +561,7 @@
   .hero-hidden .kosha-hero-copy-group,
   .hero-hidden .kosha-hero-actions,
   .hero-hidden .kosha-hero-info-row,
+  .hero-hidden .kosha-hero-media-col,
   .hero-hidden .kosha-media-card,
   .hero-hidden .kosha-clay-badge,
   .hero-revealed .kosha-hero-eyebrow-wrapper,
@@ -546,6 +569,7 @@
   .hero-revealed .kosha-hero-copy-group,
   .hero-revealed .kosha-hero-actions,
   .hero-revealed .kosha-hero-info-row,
+  .hero-revealed .kosha-hero-media-col,
   .hero-revealed .kosha-media-card,
   .hero-revealed .kosha-clay-badge {
     animation: none !important;
@@ -557,9 +581,12 @@
     animation: none !important;
   }
 
+  .kosha-media-card,
+  .kosha-media-card.is-tilting,
   .kosha-media-card:hover,
   .kosha-hero-btn-primary:hover,
   .kosha-hero-btn-secondary:hover {
     transform: none !important;
+    transition: none !important;
   }
 }
