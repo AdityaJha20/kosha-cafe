@@ -22,6 +22,56 @@ export const calculatePlaybackRate = (duration: number): number => {
   return effectiveMediaInterval / targetRealInterval;
 };
 
+/**
+ * Accurately measures the final, settled viewport bounding rect of the target navbar logo,
+ * neutralizing any transient CSS transform on the navbar wrapper or its ancestors.
+ *
+ * This ensures the traveling logo interpolates toward the exact resting coordinates rather than
+ * an intermediate position measured mid-transition.
+ */
+export const getSettledTargetRect = (
+  targetLogo: HTMLElement
+): { left: number; top: number; width: number; height: number } => {
+  const headerWrapper = targetLogo.closest<HTMLElement>('.kosha-header-wrapper');
+
+  if (!headerWrapper) {
+    const r = targetLogo.getBoundingClientRect();
+    const fallbackH = window.innerWidth <= 900 ? 30 : 36;
+    const h = r.height > 0 ? r.height : fallbackH;
+    const w = r.width > 0 ? r.width : h * (2167 / 726);
+    return {
+      left: r.left,
+      top: r.top,
+      width: w,
+      height: h,
+    };
+  }
+
+  // Temporarily neutralize wrapper transform synchronously to measure resting layout
+  const prevTransform = headerWrapper.style.transform;
+  const prevTransition = headerWrapper.style.transition;
+
+  headerWrapper.style.transition = 'none';
+  headerWrapper.style.transform = 'none';
+
+  const settledRect = targetLogo.getBoundingClientRect();
+
+  // Restore previous style properties immediately within the same synchronous frame
+  headerWrapper.style.transform = prevTransform;
+  headerWrapper.style.transition = prevTransition;
+
+  const fallbackHeight = window.innerWidth <= 900 ? 30 : 36;
+  const finalH = settledRect.height > 0 ? settledRect.height : fallbackHeight;
+  const finalW = settledRect.width > 0 ? settledRect.width : finalH * (2167 / 726);
+
+  return {
+    left: settledRect.left,
+    top: settledRect.top,
+    width: finalW,
+    height: finalH,
+  };
+};
+
 export interface CinematicIntroProps {
   navbarLogoRef: React.RefObject<HTMLImageElement | null>;
   onIntroStart?: () => void;
@@ -209,9 +259,9 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({
       // Trigger movement to navbar in next frame
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          // Re-measure target in case navbar just revealed
-          const freshTargetRect = targetLogo.getBoundingClientRect();
-          const targetH = freshTargetRect.height > 0 ? freshTargetRect.height : 36;
+          // Measure settled target coordinates without ancestor transform distortion
+          const freshTargetRect = getSettledTargetRect(targetLogo);
+          const targetH = freshTargetRect.height;
           const targetL = freshTargetRect.left;
           const targetT = freshTargetRect.top;
 

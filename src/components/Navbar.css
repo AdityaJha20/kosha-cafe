@@ -85,12 +85,12 @@
   display: block;
   user-select: none;
   -webkit-user-drag: none;
-  transition: opacity 0.3s ease;
 }
 
-/* During the final settle step of intro, hide navbar logo so moving clone matches seamlessly */
+/* During the intro flight, hide navbar logo so traveling clone matches seamlessly */
 .kosha-navbar-logo.logo-dormant {
   opacity: 0;
+  pointer-events: none;
 }
 
 /* Center: Desktop Navigation Links */
