@@ -156,3 +156,13 @@
     margin: 0;
   }
 }
+
+/* Phone-only: enlarge the logo artwork inside the intro video by 40%.
+   The video and overlay share the same cream background, so the scaled
+   frame edges remain seamless. Wider tablet and desktop layouts are untouched. */
+@media (max-width: 600px) {
+  .kosha-intro-video {
+    transform: scale(1.4);
+    transform-origin: center center;
+  }
+}
