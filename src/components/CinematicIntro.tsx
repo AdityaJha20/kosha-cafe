@@ -1,6 +1,27 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './CinematicIntro.css';
 
+// Timing constants for intro playback and transition
+export const TIME_REDUCTION_SEC = 1.0; // Desired reduction of exactly 1,000 ms
+export const NEAR_END_OFFSET_SEC = 0.2; // Buffer before media ends to trigger transition
+
+/**
+ * Calculates the exact video playback rate needed to complete the effective
+ * video playback portion 1,000 ms (1.0s) sooner.
+ *
+ * Effective media interval = video.duration - NEAR_END_OFFSET_SEC (4.0 - 0.2 = 3.8s)
+ * Target real-time playback interval = effectiveMediaInterval - TIME_REDUCTION_SEC (3.8 - 1.0 = 2.8s)
+ * PlaybackRate = 3.8 / 2.8 ≈ 1.35714
+ */
+export const calculatePlaybackRate = (duration: number): number => {
+  const effectiveMediaInterval = (duration > 0 ? duration : 4.0) - NEAR_END_OFFSET_SEC;
+  if (effectiveMediaInterval <= TIME_REDUCTION_SEC) {
+    return 1.0;
+  }
+  const targetRealInterval = effectiveMediaInterval - TIME_REDUCTION_SEC;
+  return effectiveMediaInterval / targetRealInterval;
+};
+
 export interface CinematicIntroProps {
   navbarLogoRef: React.RefObject<HTMLImageElement | null>;
   onIntroStart?: () => void;
@@ -30,14 +51,27 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({
   const stageRef = useRef<HTMLDivElement | null>(null);
   const travelingLogoRef = useRef<HTMLImageElement | null>(null);
   const safetyTimeoutRef = useRef<number | null>(null);
+  const transitionStartedRef = useRef<boolean>(false);
+  const finishedRef = useRef<boolean>(false);
 
   const finishImmediately = useCallback(() => {
+    if (finishedRef.current) return;
+    finishedRef.current = true;
     if (safetyTimeoutRef.current) {
       window.clearTimeout(safetyTimeoutRef.current);
     }
     setPhase('completed');
     onComplete();
   }, [onComplete]);
+
+  // Apply calibrated playback rate to speed up video portion by exactly 1,000 ms
+  const applyPlaybackRate = useCallback(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const rate = calculatePlaybackRate(video.duration);
+    video.defaultPlaybackRate = rate;
+    video.playbackRate = rate;
+  }, []);
 
   // Initial check: query param or reduced motion preference
   useEffect(() => {
@@ -59,10 +93,10 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({
     setPhase('playing');
     onIntroStart?.();
 
-    // Max fallback safety timeout: if video hangs or takes > 6s, finish gracefully
+    // Safety fallback: if video stalls or takes > 5.5s, finish gracefully
     safetyTimeoutRef.current = window.setTimeout(() => {
       finishImmediately();
-    }, 6500);
+    }, 5500);
 
     return () => {
       if (safetyTimeoutRef.current) {
@@ -93,6 +127,9 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({
     video.muted = true;
     video.playsInline = true;
 
+    // Ensure playback rate is set before playback begins
+    applyPlaybackRate();
+
     const playPromise = video.play();
     if (playPromise !== undefined) {
       playPromise.catch(() => {
@@ -100,11 +137,12 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({
         finishImmediately();
       });
     }
-  }, [phase, finishImmediately]);
+  }, [phase, applyPlaybackRate, finishImmediately]);
 
   // Start transition from video to navbar
   const startTransition = useCallback(() => {
-    if (phase === 'transiting' || phase === 'completed') return;
+    if (transitionStartedRef.current || phase === 'transiting' || phase === 'completed') return;
+    transitionStartedRef.current = true;
 
     setPhase('hold');
 
@@ -207,10 +245,14 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({
     const video = videoRef.current;
     if (!video || phase !== 'playing') return;
 
-    if (video.duration && video.currentTime >= video.duration - 0.2) {
+    if (video.duration && video.currentTime >= video.duration - NEAR_END_OFFSET_SEC) {
       video.pause();
       startTransition();
     }
+  };
+
+  const handleLoadedMetadata = () => {
+    applyPlaybackRate();
   };
 
   const handleVideoEnded = () => {
@@ -260,6 +302,8 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({
             muted
             playsInline
             autoPlay
+            onLoadedMetadata={handleLoadedMetadata}
+            onCanPlay={applyPlaybackRate}
             onTimeUpdate={handleTimeUpdate}
             onEnded={handleVideoEnded}
             onError={handleVideoError}
