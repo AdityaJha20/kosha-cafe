@@ -1,0 +1,512 @@
+/* ==========================================================================
+   KOSHA — Food & Beverage Section Styles
+   "03 / FOOD & BEVERAGE — A Taste of KOSHĀ."
+   Design Direction: Warm Editorial Luxury, Architectural Spacing, Premium Craft
+   ========================================================================== */
+
+.kosha-fb-section {
+  width: 100%;
+  background-color: var(--kosha-cream, #F5F0E5);
+  padding-top: clamp(68px, 9vh, 100px);
+  padding-bottom: clamp(100px, 14vh, 160px);
+  scroll-margin-top: clamp(84px, 11vh, 110px);
+  box-sizing: border-box;
+  position: relative;
+}
+
+.kosha-fb-inner {
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding-inline: clamp(24px, 4vw, 48px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   A. Section Metadata Header
+   -------------------------------------------------------------------------- */
+
+.kosha-fb-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: clamp(36px, 5vw, 56px);
+}
+
+.kosha-fb-index-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.kosha-fb-index-left {
+  font-family: var(--font-family-base);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(48, 47, 43, 0.65);
+}
+
+.kosha-fb-index-right {
+  font-family: var(--font-family-base);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(48, 47, 43, 0.45);
+}
+
+.kosha-fb-divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(185, 167, 142, 0.38);
+  margin-top: 14px;
+  margin-bottom: clamp(28px, 4vw, 42px);
+}
+
+/* --------------------------------------------------------------------------
+   B. Headline and Adjacent Supporting Region
+   -------------------------------------------------------------------------- */
+
+.kosha-fb-intro-row {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(28px, 4vw, 64px);
+  align-items: flex-end;
+}
+
+.kosha-fb-headline-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kosha-fb-eyebrow {
+  font-family: var(--font-family-base);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kosha-green, #71836A);
+}
+
+.kosha-fb-headline {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(2.75rem, 5.2vw, 4.3rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--kosha-charcoal, #302F2B);
+}
+
+.kosha-fb-line {
+  display: inline;
+}
+
+.kosha-fb-italic {
+  font-style: italic;
+  font-weight: 600;
+}
+
+.kosha-fb-desc-wrap {
+  padding-bottom: 6px;
+}
+
+.kosha-fb-lead {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(1.05rem, 1.25vw, 1.22rem);
+  font-weight: 500;
+  line-height: 1.55;
+  color: rgba(48, 47, 43, 0.72);
+  max-width: 40ch;
+}
+
+/* --------------------------------------------------------------------------
+   C. Main Two-Column Editorial Feature Grid
+   -------------------------------------------------------------------------- */
+
+.kosha-fb-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(320px, 1fr);
+  gap: clamp(28px, 3.2vw, 44px);
+  align-items: start;
+}
+
+/* --------------------------------------------------------------------------
+   Left Column (~62%): Dominant Culinary Photograph
+   -------------------------------------------------------------------------- */
+
+.kosha-fb-visual-col {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.kosha-fb-media-frame {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: clamp(18px, 2.2vw, 26px);
+  overflow: hidden;
+  position: relative;
+  background-color: #1E1D1A;
+  border: 1px solid rgba(185, 167, 142, 0.38);
+  box-shadow:
+    0 24px 60px -16px rgba(48, 47, 43, 0.12),
+    0 6px 20px -4px rgba(48, 47, 43, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 0.85);
+  box-sizing: border-box;
+}
+
+.kosha-fb-main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.kosha-fb-media-frame:hover .kosha-fb-main-image {
+  transform: scale(1.02);
+}
+
+/* Image Caption Scrim Overlay */
+.kosha-fb-caption-scrim {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: clamp(16px, 2.2vw, 24px);
+  background: linear-gradient(180deg, transparent 0%, rgba(30, 29, 26, 0.42) 100%);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.kosha-fb-caption-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  background-color: rgba(250, 246, 238, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(185, 167, 142, 0.42);
+  border-radius: 9999px;
+  font-family: var(--font-family-base);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--kosha-charcoal, #302F2B);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.kosha-fb-caption-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--kosha-terracotta, #C7684E);
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Right Column (~36%): Editorial Storytelling Panel
+   -------------------------------------------------------------------------- */
+
+.kosha-fb-story-col {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.kosha-fb-card {
+  width: 100%;
+  background-color: var(--capsule-surface, #FAF6EE);
+  border: 1px solid rgba(185, 167, 142, 0.42);
+  border-radius: clamp(18px, 2.2vw, 26px);
+  padding: clamp(22px, 2.6vw, 32px);
+  box-shadow:
+    0 8px 30px -4px rgba(48, 47, 43, 0.06),
+    0 2px 8px -2px rgba(48, 47, 43, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.kosha-fb-card-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.kosha-fb-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.kosha-fb-card-category {
+  font-family: var(--font-family-base);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kosha-green, #71836A);
+}
+
+.kosha-fb-card-id {
+  font-family: var(--font-family-base);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(48, 47, 43, 0.45);
+}
+
+.kosha-fb-card-title {
+  margin: 0 0 12px 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(1.65rem, 2.1vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+  color: var(--kosha-charcoal, #302F2B);
+}
+
+.kosha-fb-card-body {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(0.92rem, 1.02vw, 1.02rem);
+  line-height: 1.62;
+  color: rgba(48, 47, 43, 0.72);
+}
+
+.kosha-fb-card-divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(185, 167, 142, 0.32);
+  margin: clamp(14px, 1.8vw, 20px) 0;
+}
+
+/* Secondary Culinary Photograph Frame */
+.kosha-fb-craft-frame {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: clamp(12px, 1.5vw, 16px);
+  overflow: hidden;
+  position: relative;
+  background-color: #1E1D1A;
+  border: 1px solid rgba(185, 167, 142, 0.35);
+  box-sizing: border-box;
+}
+
+.kosha-fb-craft-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.kosha-fb-card:hover .kosha-fb-craft-image {
+  transform: scale(1.025);
+}
+
+.kosha-fb-craft-scrim {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 12px;
+  background: linear-gradient(180deg, transparent 0%, rgba(30, 29, 26, 0.42) 100%);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.kosha-fb-craft-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  background-color: rgba(250, 246, 238, 0.94);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(185, 167, 142, 0.38);
+  border-radius: 9999px;
+  font-family: var(--font-family-base);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--kosha-charcoal, #302F2B);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.kosha-fb-craft-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--kosha-green, #71836A);
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   D. Entrance Animations (Triggered via IntersectionObserver)
+   -------------------------------------------------------------------------- */
+
+.kosha-fb-section.is-revealed .kosha-fb-media-frame {
+  animation: fbRevealMain 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.kosha-fb-section.is-revealed .kosha-fb-card {
+  animation: fbRevealCard 0.70s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+
+@keyframes fbRevealMain {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fbRevealCard {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   E. Responsive Layouts & Dedicated Mobile Adaptation
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .kosha-fb-intro-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .kosha-fb-main-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .kosha-fb-media-frame {
+    aspect-ratio: 16 / 10;
+  }
+
+  .kosha-fb-card {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .kosha-fb-section {
+    padding-top: 56px;
+    padding-bottom: clamp(72px, 10vh, 100px);
+  }
+
+  .kosha-fb-inner {
+    padding-inline: 20px;
+  }
+
+  .kosha-fb-header {
+    margin-bottom: 28px;
+  }
+
+  .kosha-fb-index-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .kosha-fb-index-right {
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+  }
+
+  .kosha-fb-divider {
+    margin-top: 10px;
+    margin-bottom: 22px;
+  }
+
+  .kosha-fb-headline {
+    font-size: clamp(2.2rem, 8vw, 2.9rem);
+  }
+
+  .kosha-fb-lead {
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+
+  .kosha-fb-main-grid {
+    gap: 22px;
+  }
+
+  .kosha-fb-media-frame {
+    aspect-ratio: 16 / 10;
+    border-radius: 18px;
+  }
+
+  .kosha-fb-caption-pill {
+    font-size: 10.5px;
+    padding: 6px 12px;
+  }
+
+  .kosha-fb-card {
+    padding: 22px 20px;
+    border-radius: 18px;
+  }
+
+  .kosha-fb-card-title {
+    font-size: 1.65rem;
+  }
+
+  .kosha-fb-card-body {
+    font-size: 0.92rem;
+  }
+
+  .kosha-fb-craft-frame {
+    aspect-ratio: 16 / 10;
+    border-radius: 12px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   F. Reduced Motion Accessibility Mode
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .kosha-fb-media-frame,
+  .kosha-fb-main-image,
+  .kosha-fb-card,
+  .kosha-fb-craft-image {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}

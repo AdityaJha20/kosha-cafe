@@ -17,8 +17,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
-  height: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -28,7 +27,7 @@ body {
   flex-direction: column;
   background-color: var(--kosha-cream);
   color: var(--kosha-charcoal);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 #root {
