@@ -128,7 +128,7 @@
   width: 100%;
 }
 
-/* Left Column: Active Element Story */
+/* Left Column: Active Element Story Stage (Zero Layout Shift) */
 .kosha-philosophy-story-col {
   display: flex;
   flex-direction: column;
@@ -136,103 +136,259 @@
   min-height: 480px;
 }
 
-.kosha-philo-story-content {
+.kosha-philo-story-stage {
+  position: relative;
+  width: 100%;
+  min-height: 380px;
   display: flex;
   flex-direction: column;
-  animation: philoContentFadeIn 0.35s cubic-bezier(0.22, 0.7, 0.25, 1) both;
+  justify-content: flex-start;
 }
 
-@keyframes philoContentFadeIn {
-  from {
-    opacity: 0.25;
-    transform: translateY(4px);
-  }
-  to {
+/* Base Story Layer */
+.kosha-philo-story-layer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Outgoing layer: absolute positioning ensures zero layout jump during exit */
+.kosha-philo-story-layer.is-exiting {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.kosha-philo-story-layer.is-exiting.is-exiting-forward {
+  animation: philoStoryExitForward 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.kosha-philo-story-layer.is-exiting.is-exiting-backward {
+  animation: philoStoryExitBackward 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes philoStoryExitForward {
+  0% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-16px, -12px, 0);
   }
 }
 
+@keyframes philoStoryExitBackward {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(16px, -12px, 0);
+  }
+}
+
+/* Incoming / Active Story Layer */
+.kosha-philo-story-layer.is-active {
+  position: relative;
+  z-index: 2;
+}
+
+/* Coordinated Staggered Entrance Animations */
+.kosha-philo-story-layer.is-entering-forward .kosha-philo-meta {
+  animation: philoItemEnterForward 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.0s both;
+}
+
+.kosha-philo-story-layer.is-entering-forward .kosha-philo-title {
+  animation: philoTitleEnterForward 0.52s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+.kosha-philo-story-layer.is-entering-forward .kosha-philo-statement {
+  animation: philoItemEnterForward 0.48s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+.kosha-philo-story-layer.is-entering-forward .kosha-philo-body {
+  animation: philoItemEnterForward 0.48s cubic-bezier(0.22, 1, 0.36, 1) 0.21s both;
+}
+
+.kosha-philo-story-layer.is-entering-forward .kosha-philo-callout {
+  animation: philoItemEnterForward 0.50s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+}
+
+/* Backward Traversal Stagger */
+.kosha-philo-story-layer.is-entering-backward .kosha-philo-meta {
+  animation: philoItemEnterBackward 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.0s both;
+}
+
+.kosha-philo-story-layer.is-entering-backward .kosha-philo-title {
+  animation: philoTitleEnterBackward 0.52s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+.kosha-philo-story-layer.is-entering-backward .kosha-philo-statement {
+  animation: philoItemEnterBackward 0.48s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+.kosha-philo-story-layer.is-entering-backward .kosha-philo-body {
+  animation: philoItemEnterBackward 0.48s cubic-bezier(0.22, 1, 0.36, 1) 0.21s both;
+}
+
+.kosha-philo-story-layer.is-entering-backward .kosha-philo-callout {
+  animation: philoItemEnterBackward 0.50s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+}
+
+/* Settled Layer: no animations, clean static state */
+.kosha-philo-story-layer.is-settled * {
+  animation: none !important;
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes philoItemEnterForward {
+  0% {
+    opacity: 0;
+    transform: translate3d(20px, 14px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes philoItemEnterBackward {
+  0% {
+    opacity: 0;
+    transform: translate3d(-20px, 14px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes philoTitleEnterForward {
+  0% {
+    opacity: 0;
+    transform: translate3d(24px, 18px, 0);
+    filter: blur(2px);
+  }
+  60% {
+    filter: blur(0);
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+@keyframes philoTitleEnterBackward {
+  0% {
+    opacity: 0;
+    transform: translate3d(-24px, 18px, 0);
+    filter: blur(2px);
+  }
+  60% {
+    filter: blur(0);
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+/* Metadata Index Row */
 .kosha-philo-meta {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 
 .kosha-philo-index {
   font-family: var(--font-family-base);
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 800;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   color: var(--kosha-green, #71836A);
+  transition: color 0.3s ease;
 }
 
 .kosha-philo-dot {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background-color: rgba(185, 167, 142, 0.6);
+  background-color: var(--kosha-green, #71836A);
+  transition: background-color 0.3s ease;
 }
 
 .kosha-philo-label {
   font-family: var(--font-family-base);
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(48, 47, 43, 0.58);
+  color: rgba(48, 47, 43, 0.55);
 }
 
+/* Element Name Title */
 .kosha-philo-title {
-  margin: 0 0 10px 0;
+  margin: 0 0 16px 0;
   font-family: var(--font-family-base);
-  font-size: clamp(2.2rem, 3.4vw, 3rem);
+  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
   font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
   color: var(--kosha-charcoal, #302F2B);
-  text-transform: uppercase;
 }
 
+/* Thoughtful Statement */
 .kosha-philo-statement {
-  margin: 0 0 14px 0;
+  margin: 0 0 16px 0;
   font-family: var(--font-family-base);
-  font-size: clamp(1.1rem, 1.35vw, 1.25rem);
-  font-weight: 700;
-  line-height: 1.38;
+  font-size: clamp(1.2rem, 1.45vw, 1.35rem);
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.45;
   color: var(--kosha-green-deep, #283726);
+  max-width: 38ch;
 }
 
+/* Body Copy */
 .kosha-philo-body {
-  margin: 0 0 22px 0;
+  margin: 0 0 28px 0;
   font-family: var(--font-family-base);
-  font-size: clamp(0.96rem, 1.08vw, 1.04rem);
-  line-height: 1.64;
-  color: rgba(48, 47, 43, 0.78);
-  max-width: 44ch;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  line-height: 1.68;
+  color: rgba(48, 47, 43, 0.72);
+  max-width: 42ch;
 }
 
-/* Callout Panel */
+/* Supporting Detail Callout Box */
 .kosha-philo-callout {
-  background-color: var(--capsule-surface, #FAF6EE);
-  border: 1px solid rgba(185, 167, 142, 0.42);
-  border-radius: 14px;
   padding: 16px 20px;
-  box-shadow: 0 2px 8px rgba(48, 47, 43, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  background-color: rgba(250, 246, 238, 0.72);
+  border-left: 3px solid var(--element-accent, var(--kosha-green, #71836A));
+  border-radius: 0 12px 12px 0;
   margin-bottom: 24px;
+  box-sizing: border-box;
+  transition: border-left-color 0.35s ease;
 }
 
 .kosha-philo-callout-title {
+  display: block;
   font-family: var(--font-family-base);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--kosha-green, #71836A);
+  margin-bottom: 4px;
+  transition: color 0.35s ease;
 }
 
 .kosha-philo-callout-text {
@@ -271,6 +427,19 @@
   outline: none;
 }
 
+.kosha-philo-nav-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.kosha-philo-nav-btn:hover .kosha-philo-nav-arrow-left {
+  transform: translateX(-2px);
+}
+
+.kosha-philo-nav-btn:hover .kosha-philo-nav-arrow-right {
+  transform: translateX(2px);
+}
+
 .kosha-philo-nav-btn:hover {
   background-color: #FAF6EE;
   border-color: rgba(185, 167, 142, 0.85);
@@ -297,11 +466,19 @@
   gap: 4px;
 }
 
+.kosha-philo-counter-active {
+  font-weight: 800;
+  transition: color 0.3s ease;
+}
+
 .kosha-philo-nav-sep {
   opacity: 0.4;
 }
 
-/* Right Column: Cinematic Photograph Window */
+/* --------------------------------------------------------------------------
+   C. Right Column: Cinematic Photograph Window with Liquid-Clay Morph
+   -------------------------------------------------------------------------- */
+
 .kosha-philosophy-visual-col {
   display: flex;
   align-items: center;
@@ -320,8 +497,10 @@
     0 6px 20px -4px rgba(48, 47, 43, 0.05),
     inset 0 1px 1px rgba(255, 255, 255, 0.85);
   box-sizing: border-box;
+  transform: translateZ(0); /* Hardware acceleration */
 }
 
+/* Photographic Layer Base */
 .kosha-philo-image-layer {
   position: absolute;
   inset: 0;
@@ -329,15 +508,8 @@
   height: 100%;
   opacity: 0;
   z-index: 1;
-  transition: opacity 0.45s cubic-bezier(0.22, 0.7, 0.25, 1);
-  will-change: opacity;
   pointer-events: none;
-}
-
-.kosha-philo-image-layer.is-active {
-  opacity: 1;
-  z-index: 2;
-  pointer-events: auto;
+  transform-origin: center center;
 }
 
 .kosha-philo-image {
@@ -346,6 +518,143 @@
   object-fit: cover;
   object-position: center;
   display: block;
+  transform-origin: center center;
+}
+
+/* Dormant Layers */
+.kosha-philo-image-layer.is-dormant {
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+}
+
+/* Settled Layer: 100% full crisp frame, no active clip */
+.kosha-philo-image-layer.is-active.is-settled {
+  opacity: 1;
+  z-index: 2;
+  pointer-events: auto;
+  clip-path: none !important;
+  -webkit-clip-path: none !important;
+  transform: none !important;
+}
+
+.kosha-philo-image-layer.is-active.is-settled .kosha-philo-image {
+  transform: none !important;
+}
+
+/* Outgoing Layer: Elastic Squash-and-Stretch Anticipation & Flow */
+.kosha-philo-image-layer.is-previous {
+  z-index: 2;
+  pointer-events: none;
+}
+
+.kosha-philo-image-layer.is-previous.is-exiting-forward {
+  animation: clayImageExitForward 850ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.kosha-philo-image-layer.is-previous.is-exiting-backward {
+  animation: clayImageExitBackward 850ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes clayImageExitForward {
+  0% {
+    transform: scale(1, 1) translateX(0);
+    opacity: 1;
+  }
+  22% {
+    /* Phase A: Organic elastic compression along motion vector */
+    transform: scale(0.97, 1.03) translateX(-18px);
+    opacity: 0.96;
+  }
+  60% {
+    /* Phase B: Flowing stretch and graceful recession */
+    transform: scale(0.92, 1.05) translateX(-45px);
+    opacity: 0.35;
+  }
+  100% {
+    /* Complete exit */
+    transform: scale(0.90, 1.03) translateX(-60px);
+    opacity: 0;
+  }
+}
+
+@keyframes clayImageExitBackward {
+  0% {
+    transform: scale(1, 1) translateX(0);
+    opacity: 1;
+  }
+  22% {
+    /* Phase A: Organic elastic compression along reverse motion vector */
+    transform: scale(0.97, 1.03) translateX(18px);
+    opacity: 0.96;
+  }
+  60% {
+    /* Phase B: Flowing stretch and graceful recession */
+    transform: scale(0.92, 1.05) translateX(45px);
+    opacity: 0.35;
+  }
+  100% {
+    /* Complete exit */
+    transform: scale(0.90, 1.03) translateX(60px);
+    opacity: 0;
+  }
+}
+
+/* Incoming Layer: Emerges through Dynamic Liquid-Clay Morph Clip */
+.kosha-philo-image-layer.is-active.is-entering {
+  opacity: 1;
+  z-index: 3;
+  pointer-events: auto;
+}
+
+.kosha-philo-image-layer.is-active.is-entering.is-entering-forward .kosha-philo-image {
+  animation: clayImageEnterForward 850ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.kosha-philo-image-layer.is-active.is-entering.is-entering-backward .kosha-philo-image {
+  animation: clayImageEnterBackward 850ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes clayImageEnterForward {
+  0% {
+    /* Enters compressed horizontally, elongated vertically (counter squash-stretch) */
+    transform: scale(1.08, 0.96) translateX(42px);
+    opacity: 0.85;
+  }
+  25% {
+    transform: scale(1.04, 0.98) translateX(22px);
+    opacity: 1;
+  }
+  65% {
+    /* Phase C: Smooth elastic settle */
+    transform: scale(1.01, 0.995) translateX(3px);
+  }
+  100% {
+    /* Final crisp rest state */
+    transform: scale(1, 1) translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes clayImageEnterBackward {
+  0% {
+    /* Enters compressed horizontally in reverse */
+    transform: scale(1.08, 0.96) translateX(-42px);
+    opacity: 0.85;
+  }
+  25% {
+    transform: scale(1.04, 0.98) translateX(-22px);
+    opacity: 1;
+  }
+  65% {
+    /* Phase C: Smooth elastic settle */
+    transform: scale(1.01, 0.995) translateX(-3px);
+  }
+  100% {
+    /* Final crisp rest state */
+    transform: scale(1, 1) translateX(0);
+    opacity: 1;
+  }
 }
 
 /* Image Caption Scrim Overlay - strictly bounded to bottom */
@@ -381,13 +690,13 @@
   letter-spacing: 0.04em;
   color: var(--kosha-charcoal, #302F2B);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  animation: philoCaptionFadeIn 0.3s cubic-bezier(0.22, 0.7, 0.25, 1) both;
+  animation: philoCaptionFadeIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes philoCaptionFadeIn {
   from {
-    opacity: 0.4;
-    transform: translateY(3px);
+    opacity: 0.3;
+    transform: translateY(4px);
   }
   to {
     opacity: 1;
@@ -400,10 +709,11 @@
   height: 6px;
   border-radius: 50%;
   background-color: var(--kosha-green, #71836A);
+  transition: background-color 0.3s ease;
 }
 
 /* --------------------------------------------------------------------------
-   C. Five-Element Horizontal Selector Beneath the Composition
+   D. Five-Element Horizontal Selector Beneath the Composition
    -------------------------------------------------------------------------- */
 
 .kosha-philosophy-selector-row {
@@ -444,7 +754,7 @@
 
 .kosha-philo-selector-item.is-active {
   background-color: #FFFDF9;
-  border-color: rgba(113, 131, 106, 0.6);
+  border-color: var(--element-accent, rgba(113, 131, 106, 0.6));
   box-shadow:
     0 8px 24px -4px rgba(48, 47, 43, 0.09),
     inset 0 1px 0 rgba(255, 255, 255, 0.95);
@@ -467,7 +777,12 @@
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.08em;
-  color: var(--kosha-green, #71836A);
+  color: rgba(48, 47, 43, 0.55);
+  transition: color 0.25s ease;
+}
+
+.kosha-philo-selector-item.is-active .kosha-philo-selector-num {
+  font-weight: 800;
 }
 
 .kosha-philo-selector-name {
@@ -487,25 +802,41 @@
   text-transform: uppercase;
 }
 
-/* Subtle Active Underline Indicator */
-.kosha-philo-selector-indicator {
+/* Selector Track & Synchronized Autoplay Progress Bar */
+.kosha-philo-selector-track {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   height: 3px;
-  background-color: var(--kosha-green, #71836A);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.35s cubic-bezier(0.22, 0.7, 0.25, 1);
+  background-color: rgba(185, 167, 142, 0.25);
+  overflow: hidden;
 }
 
-.kosha-philo-selector-item.is-active .kosha-philo-selector-indicator {
-  transform: scaleX(1);
+.kosha-philo-selector-progress {
+  height: 100%;
+  width: 0%;
+  background-color: var(--kosha-green, #71836A);
+  animation: philoAutoplayBar 3s linear forwards;
+}
+
+.kosha-philo-selector-progress-static {
+  height: 100%;
+  width: 100%;
+  background-color: var(--kosha-green, #71836A);
+}
+
+@keyframes philoAutoplayBar {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 /* --------------------------------------------------------------------------
-   D. Responsive Styles
+   E. Responsive Layouts & Mobile Handling
    -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
@@ -524,7 +855,7 @@
   }
 
   .kosha-philosophy-visual-col {
-    order: -1; /* Place photograph above story on tablet & mobile */
+    order: -1; /* Keep photograph prioritized above text on tablet/mobile */
   }
 
   .kosha-philo-media-frame {
@@ -579,16 +910,23 @@
   }
 }
 
-/* Reduced Motion Mode */
+/* --------------------------------------------------------------------------
+   F. Reduced Motion Accessibility Mode
+   -------------------------------------------------------------------------- */
+
 @media (prefers-reduced-motion: reduce) {
-  .kosha-philo-story-content,
+  .kosha-philo-story-layer,
+  .kosha-philo-story-layer *,
   .kosha-philo-image-layer,
+  .kosha-philo-image-layer *,
   .kosha-philo-caption-pill,
-  .kosha-philo-selector-indicator,
+  .kosha-philo-selector-progress,
   .kosha-philo-selector-item,
   .kosha-philo-nav-btn {
     transition: none !important;
     animation: none !important;
     transform: none !important;
+    clip-path: none !important;
+    -webkit-clip-path: none !important;
   }
 }
