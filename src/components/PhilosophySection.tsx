@@ -107,7 +107,6 @@ export interface PhilosophySectionProps {
 
 export const PhilosophySection: React.FC<PhilosophySectionProps> = ({
   canAnimate = true,
-  onNavigate: _onNavigate,
 }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);

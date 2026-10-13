@@ -1,0 +1,684 @@
+/* ==========================================================================
+   KOSHA — About Section Styles (Concept 02: “The KOSHĀ Pause”)
+   Design Direction: Warm Editorial Luxury, Architectural Spacing, Panoramic Calm
+   ========================================================================== */
+
+.kosha-about-section {
+  width: 100%;
+  background-color: var(--kosha-cream, #F5F0E5);
+  padding-top: clamp(68px, 10vh, 104px);
+  padding-bottom: clamp(64px, 10vh, 120px);
+  scroll-margin-top: clamp(84px, 11vh, 110px);
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.kosha-about-inner {
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding-inline: clamp(24px, 4vw, 48px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   A. Editorial Index (Metadata Header)
+   -------------------------------------------------------------------------- */
+
+.kosha-about-index-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.kosha-about-index-item {
+  font-family: var(--font-family-base);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(48, 47, 43, 0.65);
+}
+
+.kosha-about-index-right {
+  color: rgba(48, 47, 43, 0.45);
+  letter-spacing: 0.16em;
+}
+
+.kosha-about-divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(185, 167, 142, 0.4);
+  margin-top: 14px;
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+
+/* --------------------------------------------------------------------------
+   B. Eyebrow & Display Headline
+   -------------------------------------------------------------------------- */
+
+.kosha-about-header-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: clamp(32px, 4.5vw, 48px);
+}
+
+.kosha-about-eyebrow {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kosha-green, #71836A);
+}
+
+.kosha-about-headline {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(2.75rem, 5.4vw, 4.4rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  color: var(--kosha-charcoal, #302F2B);
+  max-width: 20ch;
+}
+
+.kosha-about-headline-mask {
+  display: block;
+  overflow: visible;
+  padding-top: 6px;
+  padding-bottom: 8px;
+  margin-top: -6px;
+  margin-bottom: -8px;
+}
+
+.kosha-about-headline-line,
+.kosha-about-headline-text {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.kosha-about-headline-accent {
+  color: var(--kosha-green-deep, #283726);
+  font-weight: 800;
+}
+
+/* --------------------------------------------------------------------------
+   C. Panoramic Photograph Window (Aspect Ratio ~2.35:1)
+   -------------------------------------------------------------------------- */
+
+.kosha-about-media-wrapper {
+  width: 100%;
+  margin-bottom: clamp(36px, 5vw, 60px);
+}
+
+.kosha-about-media-frame {
+  width: 100%;
+  aspect-ratio: 2.35 / 1;
+  border-radius: clamp(16px, 2.2vw, 24px);
+  overflow: hidden;
+  position: relative;
+  background-color: var(--capsule-surface, #FAF6EE);
+  border: 1px solid rgba(185, 167, 142, 0.38);
+  box-shadow:
+    0 20px 54px -16px rgba(48, 47, 43, 0.11),
+    0 4px 16px -4px rgba(48, 47, 43, 0.04),
+    inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  box-sizing: border-box;
+  will-change: transform, opacity;
+}
+
+.kosha-about-media-reveal {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  will-change: clip-path, opacity;
+}
+
+.kosha-about-panoramic-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 46%;
+  display: block;
+  will-change: transform;
+}
+
+/* --------------------------------------------------------------------------
+   D. Two-Column Editorial Information Layer
+   -------------------------------------------------------------------------- */
+
+.kosha-about-info-layer {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: clamp(36px, 5.5vw, 76px);
+  align-items: start;
+}
+
+/* Left Column: Brand Description */
+.kosha-about-description-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.kosha-about-description-text {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(1.05rem, 1.25vw, 1.18rem);
+  line-height: 1.72;
+  color: rgba(48, 47, 43, 0.82);
+  max-width: 52ch;
+}
+
+/* Right Column: Brand Signature & Link */
+.kosha-about-signature-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 4px;
+}
+
+.kosha-about-signature-tagline {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(13px, 1.1vw, 14.5px);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--kosha-charcoal, #302F2B);
+  line-height: 1.4;
+}
+
+.kosha-about-link-container {
+  display: flex;
+  align-items: center;
+}
+
+.kosha-about-philosophy-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-family-base);
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--kosha-green-deep, #283726);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(40, 55, 38, 0.35);
+  padding-bottom: 2px;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+  outline: none;
+}
+
+.kosha-about-philosophy-link:hover {
+  color: #192417;
+  border-color: #192417;
+}
+
+.kosha-about-philosophy-link:focus-visible {
+  outline: 2px solid var(--kosha-green-deep, #283726);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.kosha-about-link-arrow {
+  display: inline-block;
+  font-family: system-ui, -apple-system, sans-serif;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kosha-about-philosophy-link:hover .kosha-about-link-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* --------------------------------------------------------------------------
+   E. Apple-Inspired Left-to-Right Multi-Trigger Reveal Choreography
+   Follow Three Directional Arrows:
+   1. Blue Arrow:  Group 1 Headline (.intro-dormant / .intro-revealed)
+   2. Red Arrow:   Group 2 Panoramic Photograph (.image-dormant / .image-revealed)
+   3. Green Arrow: Group 3 Supporting Information (.info-dormant / .info-revealed)
+   Consistent Apple Easing: cubic-bezier(0.16, 1, 0.3, 1)
+   -------------------------------------------------------------------------- */
+
+/* Group 1: Editorial Introduction — Dormant State (Blue Arrow on Headline) */
+.intro-dormant .kosha-about-index-row {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.intro-dormant .kosha-about-divider {
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.intro-dormant .kosha-about-eyebrow {
+  opacity: 0;
+  transform: translateX(-24px);
+}
+
+.intro-dormant .kosha-about-headline-line,
+.intro-dormant .kosha-about-headline-text {
+  opacity: 0;
+  transform: translateX(-45px);
+}
+
+/* Group 1: Editorial Introduction — Revealed State */
+.intro-revealed .kosha-about-index-row {
+  animation: aboutIndexReveal 400ms cubic-bezier(0.16, 1, 0.3, 1) 0ms forwards;
+}
+
+.intro-revealed .kosha-about-divider {
+  animation: aboutDividerReveal 450ms cubic-bezier(0.16, 1, 0.3, 1) 50ms forwards;
+}
+
+.intro-revealed .kosha-about-eyebrow {
+  animation: aboutEyebrowReveal 420ms cubic-bezier(0.16, 1, 0.3, 1) 80ms forwards;
+}
+
+.intro-revealed .kosha-about-headline-line,
+.intro-revealed .kosha-about-headline-text {
+  animation: aboutHeadlineReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) 120ms forwards;
+}
+
+@keyframes aboutIndexReveal {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes aboutDividerReveal {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes aboutEyebrowReveal {
+  0% {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes aboutHeadlineReveal {
+  0% {
+    opacity: 0;
+    transform: translateX(-45px);
+  }
+  40% {
+    opacity: 0.65;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Group 2: Panoramic Photograph — Dormant State (Red Arrow) */
+.image-dormant .kosha-about-media-reveal {
+  clip-path: inset(0 100% 0 0);
+  opacity: 0.2;
+}
+
+.image-dormant .kosha-about-panoramic-image {
+  transform: translateX(-30px) scale(1.02);
+}
+
+/* Group 2: Panoramic Photograph — Revealed State (Red Arrow) */
+.image-revealed .kosha-about-media-reveal {
+  animation: aboutMediaCurtainReveal 780ms cubic-bezier(0.16, 1, 0.3, 1) 0ms forwards;
+}
+
+.image-revealed .kosha-about-panoramic-image {
+  animation: aboutImageSettle 780ms cubic-bezier(0.16, 1, 0.3, 1) 0ms forwards;
+}
+
+@keyframes aboutMediaCurtainReveal {
+  0% {
+    opacity: 0.2;
+    clip-path: inset(0 100% 0 0);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes aboutImageSettle {
+  0% {
+    transform: translateX(-30px) scale(1.02);
+  }
+  100% {
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* Group 3: Supporting Editorial Information — Dormant State (Green Arrow) */
+.info-dormant .kosha-about-description-col {
+  opacity: 0;
+  transform: translateX(-32px);
+}
+
+.info-dormant .kosha-about-signature-tagline {
+  opacity: 0;
+  transform: translateX(-32px);
+}
+
+.info-dormant .kosha-about-link-container {
+  opacity: 0;
+  transform: translateX(-32px);
+}
+
+/* Group 3: Supporting Editorial Information — Revealed State (Green Arrow) */
+.info-revealed .kosha-about-description-col {
+  animation: aboutInfoDescSlide 500ms cubic-bezier(0.16, 1, 0.3, 1) 0ms forwards;
+}
+
+.info-revealed .kosha-about-signature-tagline {
+  animation: aboutInfoSigSlide 500ms cubic-bezier(0.16, 1, 0.3, 1) 80ms forwards;
+}
+
+.info-revealed .kosha-about-link-container {
+  animation: aboutInfoLinkSlide 500ms cubic-bezier(0.16, 1, 0.3, 1) 160ms forwards;
+}
+
+@keyframes aboutInfoDescSlide {
+  0% {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes aboutInfoSigSlide {
+  0% {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes aboutInfoLinkSlide {
+  0% {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   F. Responsive Adaptations: Tablet & Mobile
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .kosha-about-section {
+    padding-top: 48px;
+    padding-bottom: 72px;
+  }
+
+  .kosha-about-media-frame {
+    aspect-ratio: 16 / 9;
+    max-height: 440px;
+  }
+
+  .kosha-about-info-layer {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .kosha-about-description-text {
+    max-width: 100%;
+  }
+
+  .kosha-about-signature-col {
+    padding-top: 0;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .kosha-about-section {
+    padding-top: 56px;
+    padding-bottom: 56px;
+    scroll-margin-top: 86px;
+  }
+
+  .kosha-about-inner {
+    padding-inline: 20px;
+  }
+
+  .kosha-about-index-row {
+    font-size: 10.5px;
+  }
+
+  .kosha-about-divider {
+    margin-top: 10px;
+    margin-bottom: 24px;
+  }
+
+  .kosha-about-header-group {
+    margin-bottom: 28px;
+    gap: 8px;
+  }
+
+  .kosha-about-eyebrow {
+    font-size: 11.5px;
+  }
+
+  .kosha-about-headline {
+    font-size: 2.35rem;
+    line-height: 1.1;
+  }
+
+  .kosha-about-media-wrapper {
+    margin-bottom: 32px;
+  }
+
+  .kosha-about-media-frame {
+    aspect-ratio: 4 / 3;
+    max-height: none;
+    border-radius: 18px;
+  }
+
+  .kosha-about-panoramic-image {
+    object-position: center 30%;
+  }
+
+  .kosha-about-info-layer {
+    gap: 28px;
+  }
+
+  .kosha-about-description-text {
+    font-size: 1.05rem;
+    line-height: 1.68;
+  }
+
+  /* Mobile Left-to-Right Entrance Refinement */
+  .intro-dormant .kosha-about-index-row {
+    transform: translateX(-14px);
+  }
+
+  .intro-dormant .kosha-about-eyebrow {
+    transform: translateX(-16px);
+  }
+
+  .intro-dormant .kosha-about-headline-line,
+  .intro-dormant .kosha-about-headline-text {
+    transform: translateX(-24px);
+  }
+
+  .image-dormant .kosha-about-panoramic-image {
+    transform: translateX(-18px) scale(1.02);
+  }
+
+  .info-dormant .kosha-about-description-col,
+  .info-dormant .kosha-about-signature-tagline,
+  .info-dormant .kosha-about-link-container {
+    transform: translateX(-20px);
+  }
+
+  @keyframes aboutHeadlineReveal {
+    0% {
+      opacity: 0;
+      transform: translateX(-24px);
+    }
+    40% {
+      opacity: 0.65;
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes aboutImageSettle {
+    0% {
+      transform: translateX(-18px) scale(1.02);
+    }
+    100% {
+      transform: translateX(0) scale(1);
+    }
+  }
+
+  @keyframes aboutInfoDescSlide {
+    0% {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes aboutInfoSigSlide {
+    0% {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes aboutInfoLinkSlide {
+    0% {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .kosha-about-section {
+    padding-top: 50px;
+    scroll-margin-top: 80px;
+  }
+
+  .kosha-about-inner {
+    padding-inline: 18px;
+  }
+
+  .kosha-about-index-row {
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 10px;
+  }
+
+  .kosha-about-headline {
+    font-size: 2.15rem;
+  }
+
+  .kosha-about-media-frame {
+    aspect-ratio: 5 / 4;
+    border-radius: 16px;
+  }
+
+  .kosha-about-description-text {
+    font-size: 1rem;
+    line-height: 1.64;
+  }
+}
+
+/* Narrow Phone: 320px viewport */
+@media (max-width: 340px) {
+  .kosha-about-inner {
+    padding-inline: 14px;
+  }
+
+  .kosha-about-headline {
+    font-size: 1.9rem;
+  }
+
+  .kosha-about-media-frame {
+    aspect-ratio: 1 / 1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   G. Reduced Motion Support
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .kosha-about-section *,
+  .intro-dormant *,
+  .intro-revealed *,
+  .image-dormant *,
+  .image-revealed *,
+  .info-dormant *,
+  .info-revealed *,
+  .about-dormant *,
+  .about-revealed * {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+
+  .kosha-about-philosophy-link:hover .kosha-about-link-arrow {
+    transform: none !important;
+  }
+}

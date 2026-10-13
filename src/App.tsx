@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Navbar from './components/Navbar';
 import CinematicIntro from './components/CinematicIntro';
 import HeroSection from './components/HeroSection';
+import AboutSection from './components/AboutSection';
 import PhilosophySection from './components/PhilosophySection';
 
 const shouldInitWithIntro = (): boolean => {
@@ -105,6 +106,10 @@ export const App: React.FC = () => {
       <main id="top" className="kosha-main-canvas" aria-label="KOSHA Experience Studio">
         <HeroSection
           isRevealed={introState === 'ready'}
+          onNavigate={handleNavigate}
+        />
+        <AboutSection
+          canAnimate={introState === 'ready'}
           onNavigate={handleNavigate}
         />
         <PhilosophySection

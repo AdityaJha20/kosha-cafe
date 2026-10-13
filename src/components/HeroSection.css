@@ -344,7 +344,7 @@
   padding: 8px;
   box-sizing: border-box;
   user-select: none;
-  animation: koshaBadgeHover 6s ease-in-out infinite;
+  animation: koshaBadgeHover 6s ease-in-out 1.9s infinite;
 }
 
 @keyframes koshaBadgeHover {
@@ -376,80 +376,137 @@
 }
 
 /* --------------------------------------------------------------------------
-   Entrance Animations Choreography
+   E. Apple-Inspired Entrance Choreography (Matching Arrow References)
+   - Left Column Text Elements: Enter from right to left (← matching blue arrows)
+   - Right Column Café Card: Enter from above to below (↓ matching red arrows)
+   - All elements use animation-fill-mode: both to eliminate flicker during delay
+   - No scale transforms on card wrapper to prevent rasterization blur/washing out
+   - Consistent Apple Easing: cubic-bezier(0.16, 1, 0.3, 1)
    -------------------------------------------------------------------------- */
 
-.hero-hidden .kosha-hero-eyebrow-wrapper,
-.hero-hidden .kosha-hero-headline,
-.hero-hidden .kosha-hero-copy-group,
-.hero-hidden .kosha-hero-actions,
-.hero-hidden .kosha-hero-info-row,
-.hero-hidden .kosha-hero-media-col,
-.hero-hidden .kosha-clay-badge {
+.hero-hidden .kosha-hero-eyebrow-wrapper {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateX(32px);
+  pointer-events: none;
+}
+
+.hero-hidden .kosha-hero-headline {
+  opacity: 0;
+  transform: translateX(48px);
+  pointer-events: none;
+}
+
+.hero-hidden .kosha-hero-copy-group {
+  opacity: 0;
+  transform: translateX(38px);
+  pointer-events: none;
+}
+
+.hero-hidden .kosha-hero-actions {
+  opacity: 0;
+  transform: translateX(32px);
+  pointer-events: none;
+}
+
+.hero-hidden .kosha-hero-info-row {
+  opacity: 0;
+  transform: translateX(28px);
+  pointer-events: none;
+}
+
+.hero-hidden .kosha-hero-media-col {
+  opacity: 0;
+  transform: translateY(-56px);
   pointer-events: none;
 }
 
 .hero-revealed .kosha-hero-eyebrow-wrapper {
-  animation: heroFadeUp 650ms cubic-bezier(0.16, 1, 0.3, 1) 120ms forwards;
+  animation: heroEyebrowSlideLeft 800ms cubic-bezier(0.22, 0.7, 0.25, 1) 0ms both;
 }
 
 .hero-revealed .kosha-hero-headline {
-  animation: heroFadeUp 750ms cubic-bezier(0.16, 1, 0.3, 1) 240ms forwards;
+  animation: heroHeadlineSlideLeft 950ms cubic-bezier(0.22, 0.7, 0.25, 1) 120ms both;
 }
 
 .hero-revealed .kosha-hero-copy-group {
-  animation: heroFadeUp 750ms cubic-bezier(0.16, 1, 0.3, 1) 360ms forwards;
+  animation: heroCopySlideLeft 900ms cubic-bezier(0.22, 0.7, 0.25, 1) 260ms both;
 }
 
 .hero-revealed .kosha-hero-actions {
-  animation: heroFadeUp 750ms cubic-bezier(0.16, 1, 0.3, 1) 480ms forwards;
+  animation: heroActionsSlideLeft 800ms cubic-bezier(0.22, 0.7, 0.25, 1) 380ms both;
 }
 
 .hero-revealed .kosha-hero-info-row {
-  animation: heroFadeUp 750ms cubic-bezier(0.16, 1, 0.3, 1) 600ms forwards;
+  animation: heroInfoSlideLeft 750ms cubic-bezier(0.22, 0.7, 0.25, 1) 520ms both;
 }
 
 .hero-revealed .kosha-hero-media-col {
-  animation: heroCardReveal 850ms cubic-bezier(0.16, 1, 0.3, 1) 280ms forwards;
+  animation: heroCardSlideDown 1600ms cubic-bezier(0.22, 0.7, 0.25, 1) 100ms both;
 }
 
-.hero-revealed .kosha-clay-badge {
-  animation: heroBadgeReveal 700ms cubic-bezier(0.16, 1, 0.3, 1) 650ms forwards,
-             koshaBadgeHover 6s ease-in-out 1350ms infinite;
-}
-
-@keyframes heroFadeUp {
+@keyframes heroEyebrowSlideLeft {
   0% {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateX(32px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes heroHeadlineSlideLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(48px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes heroCopySlideLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(38px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes heroActionsSlideLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes heroInfoSlideLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes heroCardSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-56px);
   }
   100% {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes heroCardReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes heroBadgeReveal {
-  0% {
-    opacity: 0;
-    transform: scale(0.85);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
   }
 }
 
@@ -527,6 +584,101 @@
     width: 82px;
     height: 82px;
     box-shadow: 0 8px 20px rgba(48, 47, 43, 0.16);
+  }
+
+  /* Mobile entrance kinematics refinement */
+  .hero-hidden .kosha-hero-eyebrow-wrapper {
+    transform: translateX(18px);
+  }
+
+  .hero-hidden .kosha-hero-headline {
+    transform: translateX(24px);
+  }
+
+  .hero-hidden .kosha-hero-copy-group {
+    transform: translateX(20px);
+  }
+
+  .hero-hidden .kosha-hero-actions {
+    transform: translateX(18px);
+  }
+
+  .hero-hidden .kosha-hero-info-row {
+    transform: translateX(16px);
+  }
+
+  .hero-hidden .kosha-hero-media-col {
+    transform: translateY(-32px);
+  }
+
+  .hero-revealed .kosha-hero-media-col {
+    animation: heroCardSlideDown 1300ms cubic-bezier(0.22, 0.7, 0.25, 1) 100ms both;
+  }
+
+  @keyframes heroEyebrowSlideLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(18px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes heroHeadlineSlideLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(24px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes heroCopySlideLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes heroActionsSlideLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(18px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes heroInfoSlideLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(16px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes heroCardSlideDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-32px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
