@@ -13,25 +13,67 @@ export const FoodBeverageSection: React.FC<FoodBeverageSectionProps> = ({
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.15 }
-    );
+    if (typeof window === 'undefined') return;
 
-    const currentElem = sectionRef.current;
-    if (currentElem) {
-      observer.observe(currentElem);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setIsVisible(true);
+      return;
     }
 
+    if (!canAnimate) return;
+
+    // Safety fallback: if IntersectionObserver is not supported, reveal immediately
+    if (!('IntersectionObserver' in window)) {
+      setIsVisible(true);
+      return;
+    }
+
+    const currentElem = sectionRef.current;
+    if (!currentElem) {
+      setIsVisible(true);
+      return;
+    }
+
+    // Immediate viewport evaluation if already visible
+    const rect = currentElem.getBoundingClientRect();
+    if (rect.top <= window.innerHeight * 0.88 && rect.bottom >= 0) {
+      setIsVisible(true);
+      return;
+    }
+
+    let observer: IntersectionObserver | null = null;
+    try {
+      observer = new IntersectionObserver(
+        (entries) => {
+          const [entry] = entries;
+          if (entry && entry.isIntersecting) {
+            setIsVisible(true);
+            if (observer && entry.target) {
+              observer.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      );
+
+      observer.observe(currentElem);
+    } catch {
+      // Fail-open if observer fails to instantiate
+      setIsVisible(true);
+    }
+
+    // Safety timer to prevent content from remaining hidden if observer is delayed or blocked
+    const safetyTimer = window.setTimeout(() => {
+      setIsVisible(true);
+    }, 4500);
+
     return () => {
-      if (currentElem) observer.unobserve(currentElem);
+      window.clearTimeout(safetyTimer);
+      if (observer) {
+        observer.disconnect();
+      }
     };
-  }, []);
+  }, [canAnimate]);
 
   const shouldAnimate = canAnimate && isVisible;
 
@@ -76,7 +118,7 @@ export const FoodBeverageSection: React.FC<FoodBeverageSectionProps> = ({
             <div className="kosha-fb-media-frame">
               <img
                 src="/images/food-beverage-main.jpg"
-                alt="Artisanal café table spread at KOSHĀ featuring seasonal brunch plates, sourdough, and botanical refreshments"
+                alt="Handcrafted artisanal tagliatelle pasta tossed in olive oil, fresh herbs, and parmesan in an earthy ceramic bowl with fresh garden basil"
                 className="kosha-fb-main-image"
                 loading="lazy"
                 decoding="async"
@@ -85,7 +127,7 @@ export const FoodBeverageSection: React.FC<FoodBeverageSectionProps> = ({
               <div className="kosha-fb-caption-scrim">
                 <span className="kosha-fb-caption-pill">
                   <span className="kosha-fb-caption-dot" aria-hidden="true" />
-                  <span>Artisanal table &amp; seasonal ceramic brunch craft</span>
+                  <span>Handcrafted pasta &amp; seasonal herb craft</span>
                 </span>
               </div>
             </div>
@@ -116,7 +158,7 @@ export const FoodBeverageSection: React.FC<FoodBeverageSectionProps> = ({
               <div className="kosha-fb-craft-frame">
                 <img
                   src="/images/food-beverage-craft.jpg"
-                  alt="Artisanal chef's hands carefully garnishing a culinary plate with micro-herbs on handcrafted ceramics"
+                  alt="Freshly pulled espresso macchiato with silky crema and roasted single-origin coffee beans on a teak wood tray"
                   className="kosha-fb-craft-image"
                   loading="lazy"
                   decoding="async"
@@ -124,7 +166,7 @@ export const FoodBeverageSection: React.FC<FoodBeverageSectionProps> = ({
                 <div className="kosha-fb-craft-scrim">
                   <span className="kosha-fb-craft-pill">
                     <span className="kosha-fb-craft-dot" aria-hidden="true" />
-                    <span>Finishing craft &amp; seasonal plating</span>
+                    <span>Hearth roast &amp; morning espresso craft</span>
                   </span>
                 </div>
               </div>

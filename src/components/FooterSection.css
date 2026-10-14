@@ -1,0 +1,505 @@
+/* ==========================================================================
+   KOSHĀ — Grounding Footer Styles
+   "The Grounding Footer — Quiet Anchorage"
+   Palette: Deep Warm Charcoal (#302F2B), Warm Cream (#F5F0E5), Moss Green (#71836A)
+   ========================================================================== */
+
+.kosha-footer-root {
+  width: 100%;
+  background-color: var(--kosha-charcoal, #302F2B);
+  color: var(--kosha-cream, #F5F0E5);
+  padding-top: clamp(72px, 10vh, 110px);
+  padding-bottom: clamp(36px, 5vh, 52px);
+  box-sizing: border-box;
+  position: relative;
+  border-top: 1px solid rgba(48, 47, 43, 0.08);
+}
+
+.kosha-footer-inner {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-inline: clamp(24px, 4vw, 48px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   A. Main Three-Column Grid Architecture
+   -------------------------------------------------------------------------- */
+
+.kosha-footer-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 1.15fr) minmax(200px, 0.85fr) minmax(320px, 1.25fr);
+  gap: clamp(36px, 4.5vw, 64px);
+  align-items: start;
+}
+
+.kosha-footer-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.kosha-footer-col-heading {
+  margin: 0 0 clamp(20px, 2.5vw, 28px) 0;
+  font-family: var(--font-family-base);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 229, 0.45);
+}
+
+/* --------------------------------------------------------------------------
+   B. Column 1: Brand Signature
+   -------------------------------------------------------------------------- */
+
+.kosha-footer-brand-col {
+  gap: 16px;
+}
+
+.kosha-footer-brand-link {
+  display: inline-block;
+  width: fit-content;
+  text-decoration: none;
+  outline: none;
+  margin-bottom: 4px;
+}
+
+.kosha-footer-brand-link:focus-visible {
+  outline: 2px solid var(--kosha-green, #71836A);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.kosha-footer-logo {
+  height: 38px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+  display: block;
+}
+
+.kosha-footer-brand-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.kosha-footer-brand-heading {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--kosha-cream, #F5F0E5);
+}
+
+.kosha-footer-brand-tagline {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 500;
+  color: rgba(245, 240, 229, 0.65);
+}
+
+.kosha-footer-brand-statement {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: 13.5px;
+  font-weight: 400;
+  line-height: 1.62;
+  color: rgba(245, 240, 229, 0.72);
+  max-width: 38ch;
+}
+
+.kosha-footer-editorial-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-family-base);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: rgba(245, 240, 229, 0.68);
+  background-color: rgba(245, 240, 229, 0.04);
+  border: 1px solid rgba(185, 167, 142, 0.28);
+  padding: 6px 14px;
+  border-radius: var(--radius-full, 9999px);
+  width: fit-content;
+  margin-top: 6px;
+}
+
+.kosha-footer-pill-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--kosha-green, #71836A);
+}
+
+/* --------------------------------------------------------------------------
+   C. Column 2: Explore Navigation Links
+   -------------------------------------------------------------------------- */
+
+.kosha-footer-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.kosha-footer-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-family-base);
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(245, 240, 229, 0.75);
+  text-decoration: none;
+  outline: none;
+  transition: color 200ms ease, transform 200ms ease;
+  width: fit-content;
+}
+
+.kosha-footer-nav-link:hover {
+  color: var(--kosha-cream, #F5F0E5);
+  transform: translateX(4px);
+}
+
+.kosha-footer-nav-link:focus-visible {
+  outline: 2px solid var(--kosha-green, #71836A);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.kosha-footer-nav-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--kosha-terracotta, #C7684E);
+}
+
+/* --------------------------------------------------------------------------
+   D. Column 3: Come Experience KOSHĀ
+   -------------------------------------------------------------------------- */
+
+.kosha-footer-info-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.kosha-footer-panel {
+  background-color: rgba(245, 240, 229, 0.04);
+  border: 1px solid rgba(245, 240, 229, 0.1);
+  border-radius: var(--radius-sm, 12px);
+  padding: 13px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.kosha-footer-panel-label {
+  font-family: var(--font-family-base);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 229, 0.45);
+}
+
+.kosha-footer-panel-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.kosha-footer-panel-value {
+  font-family: var(--font-family-base);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--kosha-cream, #F5F0E5);
+}
+
+.kosha-footer-panel-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-family-base);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--kosha-green, #71836A);
+  text-decoration: none;
+  outline: none;
+  transition: color 180ms ease;
+}
+
+.kosha-footer-panel-link:hover {
+  color: #8fa586;
+  text-decoration: underline;
+}
+
+.kosha-footer-panel-link:focus-visible {
+  outline: 2px solid var(--kosha-green, #71836A);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.kosha-footer-panel-muted {
+  font-family: var(--font-family-base);
+  font-size: 11.5px;
+  font-style: italic;
+  color: rgba(245, 240, 229, 0.4);
+}
+
+.kosha-footer-hours-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.kosha-footer-subpanel {
+  background-color: rgba(245, 240, 229, 0.04);
+  border: 1px solid rgba(245, 240, 229, 0.1);
+  border-radius: var(--radius-sm, 12px);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kosha-footer-panel-subvalue {
+  font-family: var(--font-family-base);
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: rgba(245, 240, 229, 0.85);
+}
+
+.kosha-footer-connect-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.kosha-footer-connect-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 4px;
+  border-bottom: 1px solid rgba(245, 240, 229, 0.06);
+}
+
+.kosha-footer-connect-label {
+  font-family: var(--font-family-base);
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(245, 240, 229, 0.55);
+}
+
+.kosha-footer-connect-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-family-base);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--kosha-cream, #F5F0E5);
+  text-decoration: none;
+  outline: none;
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.kosha-footer-connect-link:hover {
+  color: var(--kosha-terracotta, #C7684E);
+  transform: translateX(2px);
+}
+
+.kosha-footer-connect-link:focus-visible {
+  outline: 2px solid var(--kosha-terracotta, #C7684E);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.kosha-footer-connect-muted {
+  font-family: var(--font-family-base);
+  font-size: 12px;
+  font-style: italic;
+  color: rgba(245, 240, 229, 0.4);
+}
+
+/* Primary Plan Your Visit CTA */
+.kosha-footer-cta-wrap {
+  width: 100%;
+}
+
+.kosha-footer-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 20px;
+  font-family: var(--font-family-base);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--kosha-cream, #F5F0E5);
+  background-color: transparent;
+  border: 1px solid rgba(245, 240, 229, 0.38);
+  border-radius: var(--radius-sm, 12px);
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.kosha-footer-cta-btn:hover {
+  background-color: rgba(245, 240, 229, 0.08);
+  border-color: var(--kosha-cream, #F5F0E5);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.kosha-footer-cta-btn:focus-visible {
+  outline: 2px solid var(--kosha-green, #71836A);
+  outline-offset: 3px;
+}
+
+.kosha-footer-cta-arrow {
+  font-size: 14px;
+  line-height: 1;
+  transition: transform 180ms ease;
+}
+
+.kosha-footer-cta-btn:hover .kosha-footer-cta-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* --------------------------------------------------------------------------
+   E. Bottom Copyright Strip
+   -------------------------------------------------------------------------- */
+
+.kosha-footer-divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(245, 240, 229, 0.1);
+  margin-top: clamp(48px, 6.5vw, 68px);
+  margin-bottom: 24px;
+}
+
+.kosha-footer-bottom-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.kosha-footer-copyright {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-family-base);
+  font-size: 12px;
+  color: rgba(245, 240, 229, 0.45);
+}
+
+.kosha-footer-copyright-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--kosha-green, #71836A);
+}
+
+.kosha-footer-bottom-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-family-base);
+  font-size: 12px;
+  color: rgba(245, 240, 229, 0.45);
+}
+
+.kosha-footer-sep {
+  color: rgba(245, 240, 229, 0.25);
+}
+
+/* --------------------------------------------------------------------------
+   F. Responsive Media Queries
+   -------------------------------------------------------------------------- */
+
+/* Tablet (Viewport <= 1024px) */
+@media (max-width: 1024px) {
+  .kosha-footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .kosha-footer-brand-col {
+    grid-column: 1 / -1;
+  }
+
+  .kosha-footer-brand-statement {
+    max-width: 60ch;
+  }
+}
+
+/* Mobile Devices (Viewport <= 640px) */
+@media (max-width: 640px) {
+  .kosha-footer-root {
+    padding-top: 56px;
+    padding-bottom: 32px;
+  }
+
+  .kosha-footer-inner {
+    padding-inline: 20px;
+  }
+
+  .kosha-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .kosha-footer-brand-col {
+    gap: 14px;
+  }
+
+  .kosha-footer-hours-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .kosha-footer-cta-btn {
+    min-height: 48px;
+  }
+
+  .kosha-footer-bottom-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .kosha-footer-nav-link,
+  .kosha-footer-cta-btn,
+  .kosha-footer-connect-link {
+    transition: none !important;
+    transform: none !important;
+  }
+}

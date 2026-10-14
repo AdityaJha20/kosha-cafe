@@ -12,6 +12,7 @@
   scroll-margin-top: clamp(84px, 11vh, 110px);
   box-sizing: border-box;
   position: relative;
+  overflow: hidden;
 }
 
 .kosha-fb-inner {
@@ -366,37 +367,101 @@
 }
 
 /* --------------------------------------------------------------------------
-   D. Entrance Animations (Triggered via IntersectionObserver)
+   D. Directional Entrance Animations (Triggered via IntersectionObserver)
    -------------------------------------------------------------------------- */
 
-.kosha-fb-section.is-revealed .kosha-fb-media-frame {
-  animation: fbRevealMain 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+/* Active transition rules on elements */
+.kosha-fb-eyebrow {
+  opacity: 1;
+  transform: translateX(0);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.06s,
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.06s;
+  will-change: opacity, transform;
 }
 
-.kosha-fb-section.is-revealed .kosha-fb-card {
-  animation: fbRevealCard 0.70s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+.kosha-fb-headline {
+  opacity: 1;
+  transform: translateX(0);
+  transition:
+    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.18s,
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.18s;
+  will-change: opacity, transform;
 }
 
-@keyframes fbRevealMain {
-  0% {
-    opacity: 0;
-    transform: translateY(18px) scale(0.985);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+.kosha-fb-lead {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.30s,
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.30s;
+  will-change: opacity, transform;
 }
 
-@keyframes fbRevealCard {
-  0% {
-    opacity: 0;
-    transform: translateY(22px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.kosha-fb-visual-col {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.90s cubic-bezier(0.16, 1, 0.3, 1) 0.42s,
+    transform 0.90s cubic-bezier(0.16, 1, 0.3, 1) 0.42s;
+  will-change: opacity, transform;
+}
+
+.kosha-fb-story-col {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.54s;
+  will-change: opacity;
+}
+
+/* Dormant starting states before section intersects viewport:
+   1. Eyebrow: enters from left to right (starts offset to the left)
+   2. Headline: enters from left to right (starts offset to the left)
+   3. Supporting paragraph: enters from top to bottom (starts offset above final position)
+   4. Main food visual: enters from bottom to top (starts offset below final position)
+   5. Kitchen card & secondary image: subtle pure opacity fade without directional displacement
+*/
+.kosha-fb-section:not(.is-revealed) .kosha-fb-eyebrow {
+  opacity: 0;
+  transform: translateX(-32px);
+}
+
+.kosha-fb-section:not(.is-revealed) .kosha-fb-headline {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
+.kosha-fb-section:not(.is-revealed) .kosha-fb-lead {
+  opacity: 0;
+  transform: translateY(-24px);
+}
+
+.kosha-fb-section:not(.is-revealed) .kosha-fb-visual-col {
+  opacity: 0;
+  transform: translateY(38px);
+}
+
+.kosha-fb-section:not(.is-revealed) .kosha-fb-story-col {
+  opacity: 0;
+  transform: none;
+}
+
+/* Revealed active states */
+.kosha-fb-section.is-revealed .kosha-fb-eyebrow,
+.kosha-fb-section.is-revealed .kosha-fb-headline {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.kosha-fb-section.is-revealed .kosha-fb-lead,
+.kosha-fb-section.is-revealed .kosha-fb-visual-col {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.kosha-fb-section.is-revealed .kosha-fb-story-col {
+  opacity: 1;
+  transform: none;
 }
 
 /* --------------------------------------------------------------------------
@@ -501,12 +566,23 @@
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
+  .kosha-fb-section:not(.is-revealed) .kosha-fb-eyebrow,
+  .kosha-fb-section:not(.is-revealed) .kosha-fb-headline,
+  .kosha-fb-section:not(.is-revealed) .kosha-fb-lead,
+  .kosha-fb-section:not(.is-revealed) .kosha-fb-visual-col,
+  .kosha-fb-section:not(.is-revealed) .kosha-fb-story-col,
+  .kosha-fb-eyebrow,
+  .kosha-fb-headline,
+  .kosha-fb-lead,
+  .kosha-fb-visual-col,
+  .kosha-fb-story-col,
   .kosha-fb-media-frame,
   .kosha-fb-main-image,
   .kosha-fb-card,
   .kosha-fb-craft-image {
+    opacity: 1 !important;
+    transform: none !important;
     transition: none !important;
     animation: none !important;
-    transform: none !important;
   }
 }

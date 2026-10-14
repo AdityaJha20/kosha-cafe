@@ -1,0 +1,514 @@
+/* ==========================================================================
+   KOSHĀ — Experience Studio Section Styles
+   "04 / THE EXPERIENCE STUDIO — Made for moments that bring us together."
+   Approved Stitch Spec: Asymmetrical Stationary Left + Dual Moving Filmstrips
+   ========================================================================== */
+
+.kosha-exp-section {
+  width: 100%;
+  background-color: var(--kosha-cream, #F5F0E5);
+  padding-top: clamp(68px, 9vh, 100px);
+  padding-bottom: clamp(100px, 14vh, 160px);
+  scroll-margin-top: clamp(84px, 11vh, 110px);
+  box-sizing: border-box;
+  position: relative;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kosha-exp-section.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.kosha-exp-inner {
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding-inline: clamp(24px, 4vw, 48px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   A. Section Metadata Header
+   -------------------------------------------------------------------------- */
+
+.kosha-exp-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: clamp(32px, 4vw, 48px);
+}
+
+.kosha-exp-index-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.kosha-exp-index-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-family-base);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(48, 47, 43, 0.65);
+}
+
+.kosha-exp-index-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--kosha-green, #71836A);
+}
+
+.kosha-exp-index-right {
+  font-family: var(--font-family-base);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(48, 47, 43, 0.45);
+}
+
+.kosha-exp-divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(185, 167, 142, 0.38);
+  margin-top: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   B. Main Two-Column Asymmetrical Grid
+   -------------------------------------------------------------------------- */
+
+.kosha-exp-main-grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.92fr) minmax(440px, 1.08fr);
+  gap: clamp(32px, 4.2vw, 60px);
+  align-items: start;
+}
+
+/* --------------------------------------------------------------------------
+   C. Left Column: Stationary Editorial Narrative Pillar
+   -------------------------------------------------------------------------- */
+
+.kosha-exp-editorial-col {
+  position: sticky;
+  top: clamp(100px, 13vh, 130px);
+  display: flex;
+  flex-direction: column;
+}
+
+.kosha-exp-headline {
+  margin: 0 0 16px 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(2.5rem, 4.6vw, 4rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  color: var(--kosha-charcoal, #302F2B);
+}
+
+.kosha-exp-line {
+  display: inline;
+}
+
+.kosha-exp-italic {
+  font-style: italic;
+  font-weight: 600;
+}
+
+.kosha-exp-subheading {
+  margin: 0 0 10px 0;
+  font-family: var(--font-family-base);
+  font-size: 1.18rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--kosha-charcoal, #302F2B);
+}
+
+.kosha-exp-intro {
+  margin: 0 0 18px 0;
+  font-family: var(--font-family-base);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: rgba(48, 47, 43, 0.88);
+}
+
+.kosha-exp-body-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.kosha-exp-body {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: rgba(48, 47, 43, 0.72);
+  max-width: 44ch;
+}
+
+/* --------------------------------------------------------------------------
+   D. Right Column: Dual Opposing Photographic Motion Gallery
+   -------------------------------------------------------------------------- */
+
+.kosha-exp-gallery-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Continuous Motion Gallery Viewport */
+.kosha-exp-gallery-viewport {
+  position: relative;
+  width: 100%;
+  height: clamp(560px, 72vh, 670px);
+  overflow: hidden;
+  border-radius: var(--radius-lg, 24px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(14px, 1.8vw, 22px);
+  outline: none;
+  /* Seamless soft-edge fade at top and bottom bounds */
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 4%,
+    rgba(0, 0, 0, 1) 96%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 4%,
+    rgba(0, 0, 0, 1) 96%,
+    transparent 100%
+  );
+}
+
+/* Accessible Hover & Focus-within Pause */
+.kosha-exp-gallery-viewport:hover .kosha-exp-track-inner,
+.kosha-exp-gallery-viewport:focus-within .kosha-exp-track-inner {
+  animation-play-state: paused;
+}
+
+/* Individual Filmstrip Columns */
+.kosha-exp-column {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.kosha-exp-track-inner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  will-change: transform;
+}
+
+/* Mathematically exact duplicated track group */
+.kosha-exp-track-group {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 2.2vw, 24px);
+  padding-bottom: clamp(18px, 2.2vw, 24px);
+  width: 100%;
+}
+
+/* Continuous Opposing Drift Animations */
+@keyframes koshaDriftDown {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes koshaDriftUp {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.kosha-exp-track-down {
+  animation: koshaDriftDown 32s linear infinite;
+}
+
+.kosha-exp-track-up {
+  animation: koshaDriftUp 28s linear infinite;
+}
+
+/* --------------------------------------------------------------------------
+   E. Experience Photographic Cards
+   -------------------------------------------------------------------------- */
+
+.kosha-exp-card {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.kosha-exp-card-media {
+  width: 100%;
+  border-radius: var(--radius-md, 16px);
+  overflow: hidden;
+  background-color: rgba(48, 47, 43, 0.05);
+  box-shadow: 0 8px 24px -4px rgba(48, 47, 43, 0.08);
+  position: relative;
+}
+
+.kosha-exp-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kosha-exp-card:hover .kosha-exp-card-img {
+  transform: scale(1.035);
+}
+
+.kosha-exp-card-meta {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kosha-exp-card-title {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.32;
+  color: var(--kosha-charcoal, #302F2B);
+}
+
+.kosha-exp-card-desc {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: 12px;
+  line-height: 1.45;
+  color: rgba(48, 47, 43, 0.65);
+}
+
+/* --------------------------------------------------------------------------
+   F. Closing CTA: "Have something in mind? / Host an Experience ↗"
+   -------------------------------------------------------------------------- */
+
+.kosha-exp-bottom-divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(185, 167, 142, 0.38);
+  margin-top: clamp(48px, 6vw, 72px);
+  margin-bottom: clamp(32px, 4vw, 44px);
+}
+
+.kosha-exp-cta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.kosha-exp-cta-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 580px;
+}
+
+.kosha-exp-cta-heading {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--kosha-charcoal, #302F2B);
+}
+
+.kosha-exp-cta-sub {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(0.92rem, 1.05vw, 1.02rem);
+  line-height: 1.5;
+  color: rgba(48, 47, 43, 0.7);
+}
+
+.kosha-exp-cta-action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.kosha-exp-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--kosha-charcoal, #302F2B);
+  color: var(--kosha-cream, #F5F0E5);
+  font-family: var(--font-family-base);
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 13px 26px;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 240ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px -2px rgba(48, 47, 43, 0.16);
+}
+
+.kosha-exp-cta-btn:hover {
+  background-color: #1F1E1B;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px rgba(48, 47, 43, 0.28);
+  color: #FFFFFF;
+}
+
+.kosha-exp-cta-arrow {
+  font-size: 15px;
+  line-height: 1;
+  transition: transform 200ms ease;
+}
+
+.kosha-exp-cta-btn:hover .kosha-exp-cta-arrow {
+  transform: translate(2px, -2px);
+}
+
+.kosha-exp-cta-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-family-base);
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(48, 47, 43, 0.55);
+}
+
+.kosha-exp-cta-note-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--kosha-green, #71836A);
+}
+
+/* --------------------------------------------------------------------------
+   G. Responsive Media Queries
+   -------------------------------------------------------------------------- */
+
+/* Tablet (Viewport <= 1024px) */
+@media (max-width: 1024px) {
+  .kosha-exp-main-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .kosha-exp-editorial-col {
+    position: static;
+    max-width: 720px;
+  }
+
+  .kosha-exp-gallery-viewport {
+    height: 520px;
+  }
+}
+
+/* Mobile Devices (Viewport <= 640px) */
+@media (max-width: 640px) {
+  .kosha-exp-inner {
+    padding-inline: 20px;
+  }
+
+  .kosha-exp-headline {
+    font-size: clamp(2.1rem, 7.8vw, 2.7rem);
+  }
+
+  .kosha-exp-gallery-viewport {
+    height: 420px;
+    gap: 12px;
+    border-radius: var(--radius-md, 16px);
+  }
+
+  .kosha-exp-track-group {
+    gap: 14px;
+    padding-bottom: 14px;
+  }
+
+  .kosha-exp-card-media {
+    border-radius: 12px;
+  }
+
+  .kosha-exp-card-title {
+    font-size: 13.5px;
+  }
+
+  .kosha-exp-card-desc {
+    font-size: 11px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .kosha-exp-cta-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .kosha-exp-cta-action {
+    width: 100%;
+  }
+
+  .kosha-exp-cta-btn {
+    width: 100%;
+    padding: 15px 24px;
+    min-height: 48px;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .kosha-exp-section {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .kosha-exp-track-inner {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .kosha-exp-track-inner.kosha-exp-track-down,
+  .kosha-exp-track-inner.kosha-exp-track-up {
+    animation: none !important;
+    transform: none !important;
+  }
+}

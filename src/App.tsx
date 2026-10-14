@@ -5,6 +5,8 @@ import HeroSection from './components/HeroSection';
 import AboutSection from './components/AboutSection';
 import PhilosophySection from './components/PhilosophySection';
 import FoodBeverageSection from './components/FoodBeverageSection';
+import ExperienceStudioSection from './components/ExperienceStudioSection';
+import FooterSection from './components/FooterSection';
 
 const shouldInitWithIntro = (): boolean => {
   if (typeof window === 'undefined') return false;
@@ -121,6 +123,11 @@ export const App: React.FC = () => {
           canAnimate={introState === 'ready'}
           onNavigate={handleNavigate}
         />
+        <ExperienceStudioSection
+          canAnimate={introState === 'ready'}
+          onNavigate={handleNavigate}
+        />
+        <FooterSection onNavigate={handleNavigate} />
       </main>
     </div>
   );
