@@ -137,7 +137,8 @@ export const AUTHORITATIVE_MENU_DATA: MenuCategory[] = [
         price: '₹275/-',
         description: 'Smooth cold brew blended with chilled milk for a rich and velvety finish.',
         media: {
-          hasTransparentAsset: false,
+          transparentPng: '/images/menu-iced-latte-isolated.png',
+          hasTransparentAsset: true,
         },
       },
       {
@@ -146,7 +147,8 @@ export const AUTHORITATIVE_MENU_DATA: MenuCategory[] = [
         price: '₹275/-',
         description: 'Espresso, chilled milk and light milk foam served over ice for a refreshing classic.',
         media: {
-          hasTransparentAsset: false,
+          transparentPng: '/images/menu-iced-cappuccino-isolated.png',
+          hasTransparentAsset: true,
         },
       },
       {
@@ -155,7 +157,8 @@ export const AUTHORITATIVE_MENU_DATA: MenuCategory[] = [
         price: '₹275/-',
         description: 'A hot, freshly brewed shot of espresso poured directly over the ice cream right before serving.',
         media: {
-          hasTransparentAsset: false,
+          transparentPng: '/images/menu-affogato-isolated.png',
+          hasTransparentAsset: true,
         },
       },
     ],
