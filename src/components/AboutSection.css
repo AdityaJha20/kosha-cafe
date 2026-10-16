@@ -1,13 +1,13 @@
 /* ==========================================================================
-   KOSHA — About Section Styles (Concept 02: “The KOSHĀ Pause”)
-   Design Direction: Warm Editorial Luxury, Architectural Spacing, Panoramic Calm
+   KOSHĀ — About Section Styles (Concept 02: “The KOSHĀ Pause” & Film Feature)
+   Design Direction: Warm Editorial Luxury, Architectural Spacing, Portrait Film
    ========================================================================== */
 
 .kosha-about-section {
   width: 100%;
   background-color: var(--kosha-cream, #F5F0E5);
-  padding-top: clamp(68px, 10vh, 104px);
-  padding-bottom: clamp(64px, 10vh, 120px);
+  padding-top: clamp(68px, 9vh, 100px);
+  padding-bottom: clamp(64px, 9vh, 110px);
   scroll-margin-top: clamp(84px, 11vh, 110px);
   box-sizing: border-box;
   position: relative;
@@ -54,18 +54,36 @@
   height: 1px;
   background-color: rgba(185, 167, 142, 0.4);
   margin-top: 14px;
-  margin-bottom: clamp(28px, 4vw, 44px);
+  margin-bottom: clamp(32px, 4.5vw, 52px);
 }
 
 /* --------------------------------------------------------------------------
-   B. Eyebrow & Display Headline
+   B. Asymmetric Editorial Grid (Desktop Composition)
    -------------------------------------------------------------------------- */
+
+.kosha-about-editorial-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 390px);
+  gap: clamp(40px, 5.5vw, 84px);
+  align-items: center;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   C. Left Column: Storytelling Content
+   -------------------------------------------------------------------------- */
+
+.kosha-about-story-col {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3.5vw, 40px);
+  justify-content: center;
+}
 
 .kosha-about-header-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: clamp(32px, 4.5vw, 48px);
+  gap: 12px;
 }
 
 .kosha-about-eyebrow {
@@ -81,24 +99,21 @@
 .kosha-about-headline {
   margin: 0;
   font-family: var(--font-family-base);
-  font-size: clamp(2.75rem, 5.4vw, 4.4rem);
+  font-size: clamp(2.6rem, 4.4vw, 4.2rem);
   font-weight: 800;
-  line-height: 1.06;
+  line-height: 1.08;
   letter-spacing: -0.035em;
   color: var(--kosha-charcoal, #302F2B);
-  max-width: 20ch;
+  max-width: 16ch;
 }
 
 .kosha-about-headline-mask {
   display: block;
   overflow: visible;
-  padding-top: 6px;
-  padding-bottom: 8px;
-  margin-top: -6px;
-  margin-bottom: -8px;
+  padding-top: 4px;
+  padding-bottom: 6px;
 }
 
-.kosha-about-headline-line,
 .kosha-about-headline-text {
   display: inline-block;
   will-change: transform, opacity;
@@ -109,80 +124,19 @@
   font-weight: 800;
 }
 
-/* --------------------------------------------------------------------------
-   C. Panoramic Photograph Window (Aspect Ratio ~2.35:1)
-   -------------------------------------------------------------------------- */
-
-.kosha-about-media-wrapper {
-  width: 100%;
-  margin-bottom: clamp(36px, 5vw, 60px);
-}
-
-.kosha-about-media-frame {
-  width: 100%;
-  aspect-ratio: 2.35 / 1;
-  border-radius: clamp(16px, 2.2vw, 24px);
-  overflow: hidden;
-  position: relative;
-  background-color: var(--capsule-surface, #FAF6EE);
-  border: 1px solid rgba(185, 167, 142, 0.38);
-  box-shadow:
-    0 20px 54px -16px rgba(48, 47, 43, 0.11),
-    0 4px 16px -4px rgba(48, 47, 43, 0.04),
-    inset 0 1px 1px rgba(255, 255, 255, 0.8);
-  box-sizing: border-box;
-  will-change: transform, opacity;
-}
-
-.kosha-about-media-reveal {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-  will-change: clip-path, opacity;
-}
-
-.kosha-about-panoramic-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 46%;
-  display: block;
-  will-change: transform;
-}
-
-/* --------------------------------------------------------------------------
-   D. Two-Column Editorial Information Layer
-   -------------------------------------------------------------------------- */
-
-.kosha-about-info-layer {
-  display: grid;
-  grid-template-columns: 1.25fr 0.75fr;
-  gap: clamp(36px, 5.5vw, 76px);
-  align-items: start;
-}
-
-/* Left Column: Brand Description */
-.kosha-about-description-col {
+.kosha-about-story-body {
   display: flex;
   flex-direction: column;
+  gap: clamp(22px, 2.8vw, 32px);
 }
 
 .kosha-about-description-text {
   margin: 0;
   font-family: var(--font-family-base);
   font-size: clamp(1.05rem, 1.25vw, 1.18rem);
-  line-height: 1.72;
+  line-height: 1.74;
   color: rgba(48, 47, 43, 0.82);
-  max-width: 52ch;
-}
-
-/* Right Column: Brand Signature & Link */
-.kosha-about-signature-col {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding-top: 4px;
+  max-width: 48ch;
 }
 
 .kosha-about-signature-tagline {
@@ -240,53 +194,171 @@
 }
 
 /* --------------------------------------------------------------------------
-   E. Apple-Inspired Left-to-Right Multi-Trigger Reveal Choreography
-   Follow Three Directional Arrows:
-   1. Blue Arrow:  Group 1 Headline (.intro-dormant / .intro-revealed)
-   2. Red Arrow:   Group 2 Panoramic Photograph (.image-dormant / .image-revealed)
-   3. Green Arrow: Group 3 Supporting Information (.info-dormant / .info-revealed)
-   Consistent Apple Easing: cubic-bezier(0.16, 1, 0.3, 1)
+   D. Right Column: Portrait Video Feature (9:16 Aspect Ratio)
    -------------------------------------------------------------------------- */
 
-/* Group 1: Editorial Introduction — Dormant State (Blue Arrow on Headline) */
-.intro-dormant .kosha-about-index-row {
+.kosha-about-video-col {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.kosha-about-video-frame {
+  width: 100%;
+  max-width: 390px;
+  aspect-ratio: 9 / 16;
+  border-radius: clamp(16px, 2.2vw, 24px);
+  overflow: hidden;
+  position: relative;
+  background-color: var(--capsule-surface, #FAF6EE);
+  border: 1px solid rgba(185, 167, 142, 0.38);
+  box-shadow:
+    0 24px 54px -16px rgba(48, 47, 43, 0.12),
+    0 4px 16px -4px rgba(48, 47, 43, 0.04),
+    inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  box-sizing: border-box;
+  will-change: transform, opacity;
+}
+
+.kosha-about-portrait-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background-color: #1c1b18;
+}
+
+/* Accessible Floating Sound Toggle Pill */
+.kosha-about-sound-toggle {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background-color: rgba(48, 47, 43, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #FAF6EE;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 9999px;
+  padding: 6px 13px;
+  font-family: var(--font-family-base);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+  user-select: none;
+}
+
+.kosha-about-sound-toggle:hover {
+  background-color: rgba(48, 47, 43, 0.9);
+  border-color: rgba(255, 255, 255, 0.38);
+  transform: translateY(-1px);
+}
+
+.kosha-about-sound-toggle:focus-visible {
+  outline: 2px solid var(--kosha-cream, #F5F0E5);
+  outline-offset: 2px;
+}
+
+.kosha-about-sound-icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.kosha-about-sound-label {
+  display: inline-block;
+  line-height: 1;
+}
+
+/* --------------------------------------------------------------------------
+   E. Choreographed Reveal Animations
+   -------------------------------------------------------------------------- */
+
+/* Dormant State */
+.about-dormant .kosha-about-index-row {
   opacity: 0;
   transform: translateX(-20px);
 }
 
-.intro-dormant .kosha-about-divider {
+.about-dormant .kosha-about-divider {
   opacity: 0;
   transform: scaleX(0);
   transform-origin: left center;
 }
 
-.intro-dormant .kosha-about-eyebrow {
+.about-dormant .kosha-about-eyebrow {
   opacity: 0;
   transform: translateX(-24px);
 }
 
-.intro-dormant .kosha-about-headline-line,
-.intro-dormant .kosha-about-headline-text {
+.about-dormant .kosha-about-headline-text {
   opacity: 0;
-  transform: translateX(-45px);
+  transform: translateX(-40px);
 }
 
-/* Group 1: Editorial Introduction — Revealed State */
-.intro-revealed .kosha-about-index-row {
+.about-dormant .kosha-about-description-text {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.about-dormant .kosha-about-signature-tagline {
+  opacity: 0;
+  transform: translateX(-24px);
+}
+
+.about-dormant .kosha-about-link-container {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.about-dormant .kosha-about-video-frame {
+  opacity: 0;
+  transform: translateY(28px) scale(0.98);
+}
+
+/* Revealed State */
+.about-revealed .kosha-about-index-row {
   animation: aboutIndexReveal 400ms cubic-bezier(0.16, 1, 0.3, 1) 0ms forwards;
 }
 
-.intro-revealed .kosha-about-divider {
-  animation: aboutDividerReveal 450ms cubic-bezier(0.16, 1, 0.3, 1) 50ms forwards;
+.about-revealed .kosha-about-divider {
+  animation: aboutDividerReveal 450ms cubic-bezier(0.16, 1, 0.3, 1) 60ms forwards;
 }
 
-.intro-revealed .kosha-about-eyebrow {
-  animation: aboutEyebrowReveal 420ms cubic-bezier(0.16, 1, 0.3, 1) 80ms forwards;
+.about-revealed .kosha-about-eyebrow {
+  animation: aboutEyebrowReveal 420ms cubic-bezier(0.16, 1, 0.3, 1) 100ms forwards;
 }
 
-.intro-revealed .kosha-about-headline-line,
-.intro-revealed .kosha-about-headline-text {
-  animation: aboutHeadlineReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) 120ms forwards;
+.about-revealed .kosha-about-headline-text {
+  animation: aboutHeadlineReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) 140ms forwards;
+}
+
+.about-revealed .kosha-about-description-text {
+  animation: aboutInfoSlide 520ms cubic-bezier(0.16, 1, 0.3, 1) 220ms forwards;
+}
+
+.about-revealed .kosha-about-signature-tagline {
+  animation: aboutInfoSlide 520ms cubic-bezier(0.16, 1, 0.3, 1) 280ms forwards;
+}
+
+.about-revealed .kosha-about-link-container {
+  animation: aboutInfoSlide 520ms cubic-bezier(0.16, 1, 0.3, 1) 340ms forwards;
+}
+
+.about-revealed .kosha-about-video-frame {
+  animation: aboutVideoReveal 750ms cubic-bezier(0.16, 1, 0.3, 1) 160ms forwards;
 }
 
 @keyframes aboutIndexReveal {
@@ -328,7 +400,7 @@
 @keyframes aboutHeadlineReveal {
   0% {
     opacity: 0;
-    transform: translateX(-45px);
+    transform: translateX(-40px);
   }
   40% {
     opacity: 0.65;
@@ -339,81 +411,10 @@
   }
 }
 
-/* Group 2: Panoramic Photograph — Dormant State (Red Arrow) */
-.image-dormant .kosha-about-media-reveal {
-  clip-path: inset(0 100% 0 0);
-  opacity: 0.2;
-}
-
-.image-dormant .kosha-about-panoramic-image {
-  transform: translateX(-30px) scale(1.02);
-}
-
-/* Group 2: Panoramic Photograph — Revealed State (Red Arrow) */
-.image-revealed .kosha-about-media-reveal {
-  animation: aboutMediaCurtainReveal 780ms cubic-bezier(0.16, 1, 0.3, 1) 0ms forwards;
-}
-
-.image-revealed .kosha-about-panoramic-image {
-  animation: aboutImageSettle 780ms cubic-bezier(0.16, 1, 0.3, 1) 0ms forwards;
-}
-
-@keyframes aboutMediaCurtainReveal {
-  0% {
-    opacity: 0.2;
-    clip-path: inset(0 100% 0 0);
-  }
-  15% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-@keyframes aboutImageSettle {
-  0% {
-    transform: translateX(-30px) scale(1.02);
-  }
-  100% {
-    transform: translateX(0) scale(1);
-  }
-}
-
-/* Group 3: Supporting Editorial Information — Dormant State (Green Arrow) */
-.info-dormant .kosha-about-description-col {
-  opacity: 0;
-  transform: translateX(-32px);
-}
-
-.info-dormant .kosha-about-signature-tagline {
-  opacity: 0;
-  transform: translateX(-32px);
-}
-
-.info-dormant .kosha-about-link-container {
-  opacity: 0;
-  transform: translateX(-32px);
-}
-
-/* Group 3: Supporting Editorial Information — Revealed State (Green Arrow) */
-.info-revealed .kosha-about-description-col {
-  animation: aboutInfoDescSlide 500ms cubic-bezier(0.16, 1, 0.3, 1) 0ms forwards;
-}
-
-.info-revealed .kosha-about-signature-tagline {
-  animation: aboutInfoSigSlide 500ms cubic-bezier(0.16, 1, 0.3, 1) 80ms forwards;
-}
-
-.info-revealed .kosha-about-link-container {
-  animation: aboutInfoLinkSlide 500ms cubic-bezier(0.16, 1, 0.3, 1) 160ms forwards;
-}
-
-@keyframes aboutInfoDescSlide {
+@keyframes aboutInfoSlide {
   0% {
     opacity: 0;
-    transform: translateX(-32px);
+    transform: translateX(-30px);
   }
   100% {
     opacity: 1;
@@ -421,62 +422,45 @@
   }
 }
 
-@keyframes aboutInfoSigSlide {
+@keyframes aboutVideoReveal {
   0% {
     opacity: 0;
-    transform: translateX(-32px);
+    transform: translateY(28px) scale(0.98);
   }
   100% {
     opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes aboutInfoLinkSlide {
-  0% {
-    opacity: 0;
-    transform: translateX(-32px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 /* --------------------------------------------------------------------------
-   F. Responsive Adaptations: Tablet & Mobile
+   F. Responsive Layout & Mobile Composition
    -------------------------------------------------------------------------- */
 
-@media (max-width: 1024px) {
-  .kosha-about-section {
-    padding-top: 48px;
-    padding-bottom: 72px;
+@media (max-width: 1080px) {
+  .kosha-about-editorial-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 350px);
+    gap: clamp(32px, 4vw, 56px);
   }
 
-  .kosha-about-media-frame {
-    aspect-ratio: 16 / 9;
-    max-height: 440px;
-  }
-
-  .kosha-about-info-layer {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .kosha-about-description-text {
-    max-width: 100%;
-  }
-
-  .kosha-about-signature-col {
-    padding-top: 0;
-    gap: 14px;
+  .kosha-about-video-frame {
+    max-width: 350px;
   }
 }
 
-@media (max-width: 768px) {
+/* Tablet & Mobile Breakpoint: Recompose to single column with exact required order:
+   1. Metadata row
+   2. Eyebrow
+   3. Headline
+   4. Portrait video
+   5. Supporting copy
+   6. “Taste. Texture. Thought.”
+   7. Philosophy link
+   -------------------------------------------------------------------------- */
+@media (max-width: 860px) {
   .kosha-about-section {
-    padding-top: 56px;
-    padding-bottom: 56px;
+    padding-top: clamp(48px, 8vh, 64px);
+    padding-bottom: clamp(52px, 8vh, 72px);
     scroll-margin-top: 86px;
   }
 
@@ -484,17 +468,26 @@
     padding-inline: 20px;
   }
 
-  .kosha-about-index-row {
-    font-size: 10.5px;
-  }
-
   .kosha-about-divider {
-    margin-top: 10px;
-    margin-bottom: 24px;
+    margin-top: 12px;
+    margin-bottom: 28px;
   }
 
+  .kosha-about-editorial-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Flatten storytelling column so header and body can be ordered around the video */
+  .kosha-about-story-col {
+    display: contents;
+  }
+
+  /* 1. Header Group: Eyebrow + Headline */
   .kosha-about-header-group {
-    margin-bottom: 28px;
+    order: 1;
+    margin-bottom: clamp(24px, 4vw, 32px);
     gap: 8px;
   }
 
@@ -503,55 +496,42 @@
   }
 
   .kosha-about-headline {
-    font-size: 2.35rem;
+    font-size: clamp(2.25rem, 7vw, 3rem);
     line-height: 1.1;
+    max-width: 100%;
   }
 
-  .kosha-about-media-wrapper {
-    margin-bottom: 32px;
+  /* 2. Portrait Video Frame */
+  .kosha-about-video-col {
+    order: 2;
+    justify-content: center;
+    margin-bottom: clamp(28px, 4.5vw, 36px);
+    width: 100%;
   }
 
-  .kosha-about-media-frame {
-    aspect-ratio: 4 / 3;
-    max-height: none;
+  .kosha-about-video-frame {
+    max-width: min(340px, 86vw);
     border-radius: 18px;
+    box-shadow:
+      0 16px 42px -12px rgba(48, 47, 43, 0.12),
+      0 4px 14px -4px rgba(48, 47, 43, 0.05);
   }
 
-  .kosha-about-panoramic-image {
-    object-position: center 30%;
-  }
-
-  .kosha-about-info-layer {
-    gap: 28px;
+  /* 3. Story Body: Description, Tagline, Philosophy Link */
+  .kosha-about-story-body {
+    order: 3;
+    gap: clamp(18px, 3vw, 24px);
   }
 
   .kosha-about-description-text {
     font-size: 1.05rem;
     line-height: 1.68;
+    max-width: 100%;
   }
 
-  /* Mobile Left-to-Right Entrance Refinement */
-  .intro-dormant .kosha-about-index-row {
-    transform: translateX(-14px);
-  }
-
-  .intro-dormant .kosha-about-eyebrow {
-    transform: translateX(-16px);
-  }
-
-  .intro-dormant .kosha-about-headline-line,
-  .intro-dormant .kosha-about-headline-text {
-    transform: translateX(-24px);
-  }
-
-  .image-dormant .kosha-about-panoramic-image {
-    transform: translateX(-18px) scale(1.02);
-  }
-
-  .info-dormant .kosha-about-description-col,
-  .info-dormant .kosha-about-signature-tagline,
-  .info-dormant .kosha-about-link-container {
-    transform: translateX(-20px);
+  /* Mobile Slide Animations */
+  .about-dormant .kosha-about-video-frame {
+    transform: translateY(20px) scale(0.99);
   }
 
   @keyframes aboutHeadlineReveal {
@@ -568,16 +548,7 @@
     }
   }
 
-  @keyframes aboutImageSettle {
-    0% {
-      transform: translateX(-18px) scale(1.02);
-    }
-    100% {
-      transform: translateX(0) scale(1);
-    }
-  }
-
-  @keyframes aboutInfoDescSlide {
+  @keyframes aboutInfoSlide {
     0% {
       opacity: 0;
       transform: translateX(-20px);
@@ -588,35 +559,19 @@
     }
   }
 
-  @keyframes aboutInfoSigSlide {
+  @keyframes aboutVideoReveal {
     0% {
       opacity: 0;
-      transform: translateX(-20px);
+      transform: translateY(20px) scale(0.99);
     }
     100% {
       opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes aboutInfoLinkSlide {
-    0% {
-      opacity: 0;
-      transform: translateX(-20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(0);
+      transform: translateY(0) scale(1);
     }
   }
 }
 
 @media (max-width: 480px) {
-  .kosha-about-section {
-    padding-top: 50px;
-    scroll-margin-top: 80px;
-  }
-
   .kosha-about-inner {
     padding-inline: 18px;
   }
@@ -631,9 +586,16 @@
     font-size: 2.15rem;
   }
 
-  .kosha-about-media-frame {
-    aspect-ratio: 5 / 4;
+  .kosha-about-video-frame {
+    max-width: min(310px, 88vw);
     border-radius: 16px;
+  }
+
+  .kosha-about-sound-toggle {
+    top: 10px;
+    right: 10px;
+    padding: 5px 11px;
+    font-size: 10px;
   }
 
   .kosha-about-description-text {
@@ -642,7 +604,7 @@
   }
 }
 
-/* Narrow Phone: 320px viewport */
+/* Narrow Phone: <= 340px viewport */
 @media (max-width: 340px) {
   .kosha-about-inner {
     padding-inline: 14px;
@@ -652,8 +614,8 @@
     font-size: 1.9rem;
   }
 
-  .kosha-about-media-frame {
-    aspect-ratio: 1 / 1;
+  .kosha-about-video-frame {
+    max-width: 270px;
   }
 }
 
@@ -663,12 +625,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .kosha-about-section *,
-  .intro-dormant *,
-  .intro-revealed *,
-  .image-dormant *,
-  .image-revealed *,
-  .info-dormant *,
-  .info-revealed *,
   .about-dormant *,
   .about-revealed * {
     animation: none !important;
@@ -678,7 +634,8 @@
     clip-path: none !important;
   }
 
-  .kosha-about-philosophy-link:hover .kosha-about-link-arrow {
+  .kosha-about-philosophy-link:hover .kosha-about-link-arrow,
+  .kosha-about-sound-toggle:hover {
     transform: none !important;
   }
 }
